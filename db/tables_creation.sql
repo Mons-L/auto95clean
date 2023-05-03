@@ -101,15 +101,17 @@ CREATE TABLE orders_address(
     FOREIGN KEY(address_id) REFERENCES address(id)
 );
 
-CREATE TABLE users_formula(
-    user_id INT,
-    formula_id INT,
+CREATE TABLE reservation(
+    id INT AUTO_INCREMENT,
     state VARCHAR(256) NOT NULL,
     reservation_date DATETIME NOT NULL,
-    PRIMARY KEY(user_id, formula_id),
+    user_id INT NOT NULL,
+    formula_id INT NOT NULL,
+    PRIMARY KEY(id),
     FOREIGN KEY(user_id) REFERENCES users(id),
     FOREIGN KEY(formula_id) REFERENCES formula(id)
 );
+
 
 CREATE TABLE formula_task(
     formula_id INT,

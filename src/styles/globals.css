@@ -105,3 +105,15 @@ a {
     color-scheme: dark;
   }
 }
+
+.bg-main-linear-gradient{
+  background: linear-gradient(93.99deg, #700052 0.51%, #370940 51.29%, #011BA7 100%), #FFFFFF;
+}
+
+.font-size-14{
+  font-size: 14px;
+}
+
+.hide-image-transition{
+  transition: .5s ease-in-out;
+}

@@ -1,0 +1,12 @@
+.footer{
+    min-height: 350px;
+    background: linear-gradient(93.99deg, #450433 0.51%, #02105C 100%);
+    color: white;
+}
+
+.footer-legal{
+    margin-top: 7px;
+    padding-top: 8px;
+    border-top: 1px solid #d2d2d7;
+    margin-bottom: 10px;
+}
