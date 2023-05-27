@@ -19,3 +19,33 @@ body {
 .hide-image-transition{
   transition: .5s ease-in-out;
 }
+
+
+
+
+/* SALMA  */
+
+.testButton {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px 10px;
+  gap: 10px;
+  position: absolute;
+  width: 260px;
+  height: 41px;
+  left: 1015px;
+  top: 848px;
+  background: linear-gradient(90deg, rgba(172, 49, 174, 0.1) 0%, rgba(255, 255, 255, 0.1) 100%);
+  border-radius: 12px;
+}
+
+
+    .abc {
+      background-image: linear-gradient(to bottom, transparent, #FFFFFF), url("/images/waterDrop.png");
+      min-height: 400px;
+      background-size: 100% auto;
+      background-repeat: no-repeat;
+    }
+@media (max-width: 800px) {}

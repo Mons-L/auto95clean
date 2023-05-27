@@ -2,7 +2,7 @@ import {Container, Nav, Navbar} from "react-bootstrap";
 import Bag from '../../resources/icons/Bag';
 
 const links = [
-    {path: '/', name: 'Acceuil'},
+    {path: '/', name: 'Accueil'},
     {path: '/rates', name: 'Tarifs'},
     {path: '/products', name: 'Produits'},
     {path: '/dashboard', name: 'Mon espace'}

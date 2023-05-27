@@ -1,3 +1,6 @@
+import Image from "next/image";
+import waterDrop from "./resources/images/water_drop.png";
+
 {/*<nav {...props} className={style.navbar}>
             <NavLink to={'/'} className={style.brand}>{brand}</NavLink>
             <ul className={style.navLinks}>
@@ -16,3 +19,11 @@
                 <Bag fill={'white'} height={25} width={20} />
             </NavLink>
         </nav>*/}
+
+
+<Image
+    src={waterDrop}
+    alt={'water-drop'}
+    style={{width: '100%', height: "auto", backgroundImage: "linear-gradient(to bottom, transparent, #837960)"}}
+    className={'d-none d-md-block hide-image-transition abc'}
+/>

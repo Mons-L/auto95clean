@@ -19,5 +19,8 @@
     "react-bootstrap": "^2.7.4",
     "react-dom": "18.2.0",
     "serverless-mysql": "^1.5.4"
+  },
+  "devDependencies": {
+    "file-loader": "^6.2.0"
   }
 }
