@@ -8,14 +8,19 @@ CREATE TABLE product(
     PRIMARY KEY(id)
 );
 
+CREATE TABLE formula_type(
+    id INT AUTO_INCREMENT,
+    label VARCHAR(50) NOT NULL,
+    PRIMARY KEY(id)
+);
+
 CREATE TABLE formula(
     id INT AUTO_INCREMENT,
     label VARCHAR(256) NOT NULL,
     description VARCHAR(512) NOT NULL,
-    #type is to know if the formula is a free select of multiple tasks with the price of
-    # each one or a specific formula written by the super administrator with a fixed price
-    type VARCHAR(256) NOT NULL,
-    PRIMARY KEY(id)
+    formula_type_id INT NOT NULL,
+    PRIMARY KEY(id),
+    FOREIGN KEY(formula_type_id) REFERENCES formula_type(id)
 );
 
 CREATE TABLE city(
@@ -105,12 +110,16 @@ CREATE TABLE reservation(
     id INT AUTO_INCREMENT,
     state VARCHAR(256) NOT NULL,
     reservation_date DATETIME NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone CHAR(10),
+    immatriculation VARCHAR(20) NOT NULL,
     user_id INT NOT NULL,
     formula_id INT NOT NULL,
     PRIMARY KEY(id),
     FOREIGN KEY(user_id) REFERENCES users(id),
     FOREIGN KEY(formula_id) REFERENCES formula(id)
 );
+
 
 
 CREATE TABLE formula_task(

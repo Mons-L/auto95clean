@@ -3,7 +3,7 @@ import Bag from '../../resources/icons/Bag';
 
 const links = [
     {path: '/', name: 'Accueil'},
-    {path: '/rates', name: 'Tarifs'},
+    {path: '/services', name: 'Prestations'},
     {path: '/products', name: 'Produits'},
     {path: '/dashboard', name: 'Mon espace'}
 ];

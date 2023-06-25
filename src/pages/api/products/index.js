@@ -17,7 +17,26 @@ export default async function handler(req, res){
 
 const handleGet = async (req, res) => {
     try {
-        const products = await productsDB.getProducts();
+        let products = null
+        let filters = {}
+
+        if(req.query.categories) {
+            const categories = req.query.categories.split(",")
+            filters = {...filters, categories: categories}
+        }
+
+        if(req.query.sort) {
+            const sort = req.query.sort
+            filters = {...filters, sort: sort}
+        }
+
+        if(req.query.search)
+            products = await productsDB.getProductsBySearch(req.query.search);
+        else if(Object.keys(filters).length > 0)
+            products = await productsDB.getProductsByFilters(filters);
+        else
+            products = await productsDB.getProducts();
+
         return res.status(200).json({
             data: { products: products },
             error: null

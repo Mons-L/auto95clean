@@ -4,12 +4,42 @@ import {Button, Card, Col, Container, Form, FormGroup, InputGroup, Row} from "re
 import BagVplus from "../../resources/icons/BagVplus";
 import Search from "../../resources/icons/Search";
 import Link from "next/link";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import ProductItem from "../../components/ProductItem";
+import apiHandler from "../../apiHandler";
+import {useRouter} from "next/navigation";
+
+const INITIAL_SORT = "preferred"
 
 const Products = props => {
 
-    const [sortParam, setSortParam] = useState("preferred");
-    const [selectedCategories, setSelectedCategories] = useState(null);
+    const router = useRouter()
+
+    const [filters, setFilters] = useState({
+        sort: INITIAL_SORT,
+        categories: null
+    })
+    const [search, setSearch] = useState("")
+    const [products, setProducts] = useState(props.products)
+
+    useEffect(() => {
+        apiHandler.fetchProductsByFilters(filters)
+            .then(response => setProducts(response.data.products))
+    }, [filters])
+
+    useEffect(() => {
+        console.log(search)
+    }, [search])
+
+    const handleSearchSubmit = () => {
+        console.log("submit search")
+        router.push({
+            pathname: "/products",
+            query: { q: search}
+        })
+        apiHandler.fetchProductsBySearch(search)
+            .then(response => setProducts(response.data.products))
+    }
 
     const handleInput = (inputValue, handler, trivialObject, inputName, stateName) => {
         if(trivialObject)
@@ -19,33 +49,25 @@ const Products = props => {
     }
 
     const handleCategoriesFilter = () => {
-        if(!selectedCategories)
-            return setSelectedCategories([]);
-        return setSelectedCategories(null);
+        if(!filters.categories)
+            return setFilters({...filters, categories: []});
+        return setFilters({...filters, categories: null});
     }
 
     const handleSelectedCategories = (value) => {
-        if(selectedCategories.indexOf(value) === -1)
-            return setSelectedCategories([...selectedCategories, value]);
-        return setSelectedCategories(selectedCategories.filter(v => v !== value));
+        if(filters.categories.indexOf(value) === -1)
+            return setFilters({...filters, categories: [...filters.categories, value]})
+        return setFilters({...filters, categories: filters.categories.filter(v => v !== value)})
     }
 
-    const categories = ["categorie1", "categorie2", "categorie3"];
+    const categories = ["cat1", "cat2", "categorie3"];
 
     const sortChoices = [
         {value: "preferred", label: "Préférés"},
         {value: "ascendingPrice", label: "Prix croissant"},
         {value: "descendingPrice", label: "Prix décroissant"},
     ]
-    const products = [
-        {id: '1', title: 'titre produit', description: 'description blablablabla', price: '4.99', imagePath: 'https://www.sourcedessens.fr/wp-content/webp-express/webp-images/uploads/2021/05/250ml-Linge-Propre-247x296.jpg.webp'},
-        {id: '2', title: 'titre produit', description: 'description blablablabla', price: '4.99', imagePath: 'https://www.sourcedessens.fr/wp-content/webp-express/webp-images/uploads/2021/05/250ml-Linge-Propre-247x296.jpg.webp'},
-        {id: '7', title: 'titre produit', description: 'description blablablabla', price: '4.99', imagePath: 'https://www.sourcedessens.fr/wp-content/webp-express/webp-images/uploads/2021/05/250ml-Linge-Propre-247x296.jpg.webp'},
-        {id: '3', title: 'titre produit', description: 'description blablablabla', price: '4.99', imagePath: 'https://www.sourcedessens.fr/wp-content/webp-express/webp-images/uploads/2021/05/250ml-Linge-Propre-247x296.jpg.webp'},
-        {id: '4', title: 'titre produit', description: 'description blablablabla', price: '4.99', imagePath: 'https://www.sourcedessens.fr/wp-content/webp-express/webp-images/uploads/2021/05/250ml-Linge-Propre-247x296.jpg.webp'},
-        {id: '5', title: 'titre produit', description: 'description blablablabla', price: '4.99', imagePath: 'https://www.sourcedessens.fr/wp-content/webp-express/webp-images/uploads/2021/05/250ml-Linge-Propre-247x296.jpg.webp'},
-        {id: '6', title: 'titre produit', description: 'description blablablabla', price: '4.99', imagePath: 'https://www.sourcedessens.fr/wp-content/webp-express/webp-images/uploads/2021/05/250ml-Linge-Propre-247x296.jpg.webp'}
-    ]
+
     return(
         <>
             <MyNavBar activepath={'/index'} />
@@ -56,7 +78,7 @@ const Products = props => {
                     </Col>
                 </Row>
                 <Row>
-                    <Col md={4}>
+                    <Col md={3}>
                         <h2>Filtres</h2>
                         <Row className={"mb-3"}>
                             <p>Trier par</p>
@@ -71,8 +93,8 @@ const Products = props => {
                                                 name={"sortParam"}
                                                 value={sortChoice.value}
                                                 label={sortChoice.label}
-                                                checked={sortParam === sortChoice.value}
-                                                onChange={() => handleInput(sortChoice.value, setSortParam, true)}
+                                                checked={filters.sort === sortChoice.value}
+                                                onChange={() => handleInput(sortChoice.value, setFilters, false, "sort", filters)}
                                             />
                                         )
                                     })
@@ -84,10 +106,10 @@ const Products = props => {
                                 <p>Catégorie</p>
                             </Col>
                             <Col>
-                                <Button variant={"outline-dark"} onClick={handleCategoriesFilter}>{selectedCategories? "-" : "+"}</Button>
+                                <Button variant={"outline-dark"} onClick={handleCategoriesFilter}>{filters.categories? "-" : "+"}</Button>
                             </Col>
                             {
-                                selectedCategories &&
+                                filters.categories &&
                                 categories.map(category => {
                                     return(
                                         <Form.Check
@@ -97,7 +119,7 @@ const Products = props => {
                                             name={"selectedCategorie"}
                                             value={category}
                                             label={category}
-                                            checked={selectedCategories.indexOf(category) !== -1}
+                                            checked={filters.categories.indexOf(category) !== -1}
                                             onChange={() => handleSelectedCategories(category)}
                                         />
                                     )
@@ -105,7 +127,7 @@ const Products = props => {
                             }
                         </Row>
                     </Col>
-                    <Col md={8}>
+                    <Col md={9}>
                         <Row>
                             <Form>
                                 <InputGroup className="mb-3">
@@ -114,36 +136,16 @@ const Products = props => {
                                         placeholder="Rechercher"
                                         aria-label="Rechercher"
                                         aria-describedby="basic-addon1"
+                                        value={search}
+                                        onChange={(e) => handleInput(e.target.value, setSearch, true)}
                                     />
-                                    <Button><Search fill={'black'} /></Button>
+                                    <Button onClick={handleSearchSubmit}><Search fill={'black'} /></Button>
                                 </InputGroup>
                             </Form>
                         </Row>
                         <Row className={'justify-content-start'}>
                             {
-                                products.map(product => {
-                                    return(
-                                        <Col xs={6} md={6} lg={4}  key={'product-' + product.id} className={'mb-4'}>
-                                            <Link href={"/products/" + product.id} className={"text-decoration-none text-black"}>
-                                                <Card>
-                                                    <Card.Img variant="top" src={product.imagePath} />
-                                                    <Card.Body>
-                                                        <Card.Text className={'m-0'}>{product.title}</Card.Text>
-                                                        <Card.Text>{product.description}</Card.Text>
-                                                        <Row className={'justify-content-between'}>
-                                                            <Col className={'d-flex justify-content-start'}>
-                                                                <Card.Text>{product.price.replace('.',',')} €</Card.Text>
-                                                            </Col>
-                                                            <Col className={'d-flex justify-content-end'}>
-                                                                <BagVplus fill={'black'} width={30} role={'button'} />
-                                                            </Col>
-                                                        </Row>
-                                                    </Card.Body>
-                                                </Card>
-                                            </Link>
-                                        </Col>
-                                    );
-                                })
+                                products.map(product => <ProductItem key={"product"+product.id} product={product} />)
                             }
                         </Row>
                     </Col>
@@ -155,3 +157,16 @@ const Products = props => {
 }
 
 export default Products;
+
+export async function getStaticProps() {
+    return apiHandler
+        .fetchProducts()
+        .then(response => {
+            return {
+                props: {
+                    products: response.data.products
+                }
+            }
+        })
+        .catch(err => console.log(err));
+}
