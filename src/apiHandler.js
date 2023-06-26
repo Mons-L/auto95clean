@@ -37,5 +37,11 @@ export default {
         return this.apiServer.get("/products?search=" + search)
             .then(response => response.data)
             .catch(errorHandler)
+    },
+
+    fetchVehiclesTypes(){
+        return this.apiServer.get("/vehicles-types")
+            .then(response => response.data)
+            .catch(errorHandler)
     }
 }

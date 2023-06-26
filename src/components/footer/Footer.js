@@ -2,7 +2,7 @@ import {Col, Container, Row} from "react-bootstrap";
 
 const Footer = props =>{
     return(
-        <Row className={'footer align-items-end'}>
+        <Row className={'footer align-items-end position-sticky mb-0'}>
             <Row>
                 <Col className={'d-flex justify-content-center'}>
                     <div>
