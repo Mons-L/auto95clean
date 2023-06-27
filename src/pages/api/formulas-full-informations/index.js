@@ -25,16 +25,16 @@ const handleGet = async (req, res) => {
             if(!formulasFullInformations.find(formula => formula.id === formulaJoinTask.formula_id)){
                 formulasFullInformations.push({
                     id: formulaJoinTask.formula_id,
-                    label: formulaJoinTask.label,
+                    label: formulaJoinTask.formulaLabel,
                     tasks: [
-                        {id: formulaJoinTask.task_id, type: formulaJoinTask.type, price: formulaJoinTask.price}
+                        {id: formulaJoinTask.task_id, type: formulaJoinTask.taskType, price: formulaJoinTask.taskPrice}
                     ]
                 })
             }
             else{
                 let formula = formulasFullInformations
                     .find(formulaFullInformations => formulaFullInformations.id === formulaJoinTask.formula_id)
-                formula.tasks.push({id: formulaJoinTask.task_id, type: formulaJoinTask.type, price: formulaJoinTask.price})
+                formula.tasks.push({id: formulaJoinTask.task_id, type: formulaJoinTask.taskType, price: formulaJoinTask.taskPrice})
             }
         })
 
