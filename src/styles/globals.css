@@ -42,6 +42,9 @@ body {
   padding-right: 50px;
 
 }
+.choosedBackground {
+  background-color: #f6d5f4;
+}
 
 .choiceBackground:hover {
   background-color: #fde5fb;

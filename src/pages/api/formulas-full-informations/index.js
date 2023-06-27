@@ -27,14 +27,14 @@ const handleGet = async (req, res) => {
                     id: formulaJoinTask.formula_id,
                     label: formulaJoinTask.formulaLabel,
                     tasks: [
-                        {id: formulaJoinTask.task_id, type: formulaJoinTask.taskType, price: formulaJoinTask.taskPrice}
+                        {id: formulaJoinTask.task_id, label: formulaJoinTask.taskLabel, type: formulaJoinTask.taskType, price: formulaJoinTask.taskPrice}
                     ]
                 })
             }
             else{
                 let formula = formulasFullInformations
                     .find(formulaFullInformations => formulaFullInformations.id === formulaJoinTask.formula_id)
-                formula.tasks.push({id: formulaJoinTask.task_id, type: formulaJoinTask.taskType, price: formulaJoinTask.taskPrice})
+                formula.tasks.push({id: formulaJoinTask.task_id, label: formulaJoinTask.taskLabel, type: formulaJoinTask.taskType, price: formulaJoinTask.taskPrice})
             }
         })
 

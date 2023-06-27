@@ -43,5 +43,35 @@ export default {
         return this.apiServer.get("/vehicles-types")
             .then(response => response.data)
             .catch(errorHandler)
+    },
+
+    fetchFormulasTypes(){
+        return this.apiServer.get("/formulas-types")
+            .then(response => response.data)
+            .catch(errorHandler)
+    },
+
+    fetchFormulas(){
+        return this.apiServer.get("/formulas")
+            .then(response => response.data)
+            .catch(errorHandler)
+    },
+
+    fetchTasks(){
+        return this.apiServer.get("/tasks")
+            .then(response => response.data)
+            .catch(errorHandler)
+    },
+
+    fetchFormulasFullInformations(){
+        return this.apiServer.get("/formulas-full-informations")
+            .then(response => response.data)
+            .catch(errorHandler)
+    },
+
+    fetchFormulasPrices(){
+        return this.apiServer.get("/formulas-prices")
+            .then(response => response.data)
+            .catch(errorHandler)
     }
 }
