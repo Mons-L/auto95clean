@@ -25,7 +25,7 @@ const handleGet = async (req, res) => {
             if(!formulasFullInformations.find(formula => formula.id === formulaJoinTask.formula_id)){
                 formulasFullInformations.push({
                     id: formulaJoinTask.formula_id,
-                    label: formulaJoinTask.formula_label,
+                    label: formulaJoinTask.label,
                     tasks: [
                         {id: formulaJoinTask.task_id, type: formulaJoinTask.type, price: formulaJoinTask.price}
                     ]
