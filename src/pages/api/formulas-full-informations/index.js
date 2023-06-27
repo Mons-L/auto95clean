@@ -22,7 +22,7 @@ const handleGet = async (req, res) => {
         let formulasFullInformations = []
 
         formulasJoinTasks.forEach(formulaJoinTask => {
-            if(!formulasFullInformations.find(formula => formula.formulaId === formulaJoinTask.formula_id)){
+            if(!formulasFullInformations.find(formula => formula.id === formulaJoinTask.formula_id)){
                 formulasFullInformations.push({
                     id: formulaJoinTask.formula_id,
                     label: formulaJoinTask.formula_label,
