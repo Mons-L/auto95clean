@@ -3,7 +3,7 @@ import {
     Row
 } from "react-bootstrap";
 
-const FormulaTypeStep = (props) => {
+const FormulasTypes = (props) => {
     return(
         <Row className={"stepBackground mb-5 "}>
             <h3 className={"mt-3"}>Quel type de formule souhaitez-vous ?</h3>
@@ -16,7 +16,7 @@ const FormulaTypeStep = (props) => {
                                 xl={3}
                                 role={"button"}
                                 onClick={() => props.saveChoice(formulaType)}
-                                className={"border rounded-3 border-3 m-5 p-3 text-center choiceBackground" + (props.currentFormulaType && props.currentFormulaType.id === formulaType.id ? " choosedBackground" : "")}
+                                className={"border rounded-3 border-3 m-5 p-3 text-center choiceBackground" + (props.selectedFormulaType && props.selectedFormulaType.id === formulaType.id ? " choosedBackground" : "")}
                             >
                                 {formulaType.label}
                             </Col>
@@ -28,4 +28,4 @@ const FormulaTypeStep = (props) => {
     )
 }
 
-export default FormulaTypeStep
+export default FormulasTypes

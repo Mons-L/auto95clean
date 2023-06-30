@@ -2,9 +2,9 @@ import apiHandler from "../apiHandler";
 
 import Footer from "../components/footer/Footer";
 import MyNavBar from "../components/mynavbar/MyNavBar";
-import VehicleTypeStep from "../components/serviceSteps/VehicleTypeStep";
-import FormulaTypeStep from "../components/serviceSteps/FormulaTypeStep";
-import FormulaChoiceStep from "../components/serviceSteps/FormulaChoiceStep";
+import VehicleType from "../components/serviceSteps/VehiclesTypes";
+import FormulaType from "../components/serviceSteps/FormulasTypes";
+import Formula from "../components/serviceSteps/Formulas";
 import PersonalInfosStep from "../components/serviceSteps/PersonalInfosStep";
 
 import {
@@ -16,54 +16,112 @@ import {
     Container,
     Row
 } from "react-bootstrap";
+import Tasks from "../components/serviceSteps/Tasks";
+import Slots from "../components/serviceSteps/Slots";
+const FORMULA_TYPE_READY_ID = 1
+const FORMULA_TYPE_CUSTOM_ID = 2
 
 const Services = props => {
 
-    const [mounted, setMounted] = useState(false)
-
-    const [vehicleType, setVehicleType] = useState(null)
-    const [formulaType, setFormulaType] = useState(null)
-    const [formulaChoice, setFormulaChoice] = useState(null)
-    const [personalInfos, setPersonalInfos] = useState(null)
+    const [selectedVehicleType, setSelectedVehicleType] = useState(null)
+    const [selectedFormulaType, setSelectedFormulaType] = useState(null)
+    const [selectedFormula, setSelectedFormula] = useState(null)
     const [formulasPrices, setFormulasPrices] = useState(null)
-
+    const [availableTasks, setAvailableTasks] = useState(null)
+    const [selectedTasks, setSelectedTasks] = useState([])
+    const [availableSlots, setAvailableSlots] = useState(null)
+    const [selectedSlot, setSelectedSlot] = useState(null)
+    const [personalInfos, setPersonalInfos] = useState(null)
 
     useEffect(() => {
-        setMounted(true)
-        if(vehicleType)
-            apiHandler.fetchFormulasPrices(vehicleType.id).then(response => setFormulasPrices(response.data.formulasPrices)).catch(err => console.log(err))
-    }, [])
+        if(selectedVehicleType)
+            apiHandler
+                .fetchFormulasPrices(selectedVehicleType.id)
+                .then(response => setFormulasPrices(response.data.formulasPrices))
+                .catch(err => console.log(err))
+    }, [selectedVehicleType])
 
+    useEffect(() => {
+        if(selectedFormulaType) {
+            apiHandler
+                .fetchTasks()
+                .then(response => setAvailableTasks(response.data.tasks))
+                .catch(err => console.log(err))
+            setSelectedTasks([])
+            setSelectedFormula(null)
+        }
+    }, [selectedFormulaType])
+
+    const renderError = () => {
+        return(
+            <div>
+                Quelque chose n'a pas fonctionné correctement.
+                Réessayez dans quelques instants. Si le problème persiste, veillez contacter
+                l'administrateur du site
+            </div>
+        )
+    }
     const renderSteps = () => {
         return (
             <>
-                <VehicleTypeStep
-                    key={"step-reservationInfos"}
-                    vehiclesTypes={props.vehiclesTypes}
-                    currentVehicleType={vehicleType}
-                    saveChoice={setVehicleType}
-                />
-                { vehicleType &&
-                    <FormulaTypeStep
-                        key={"step-formulaType"}
-                        formulasTypes={props.formulasTypes}
-                        currentFormulaType={formulaType}
-                        saveChoice={setFormulaType}
-                    />
+                {
+                    props.vehiclesTypes?
+                        <VehicleType
+                            key={"step-selectedVehicleType"}
+                            vehiclesTypes={props.vehiclesTypes}
+                            selectedVehicleType={selectedVehicleType}
+                            saveChoice={setSelectedVehicleType}
+                        />
+                    :
+                        renderError()
+                }
+                {   !props.formulasTypes?
+                        renderError()
+                    :
+                        selectedVehicleType &&
+                        <FormulaType
+                            key={"step-selectedFormulaType"}
+                            formulasTypes={props.formulasTypes}
+                            selectedFormulaType={selectedFormulaType}
+                            saveChoice={setSelectedFormulaType}
+                        />
                 }
                 {
-                    formulaType &&
-                    <FormulaChoiceStep
-                        key={"step-formulaChoice"}
+                    selectedFormulaType && selectedFormulaType.id === FORMULA_TYPE_READY_ID &&
+                    <Formula
+                        key={"step-selectedFormula"}
                         formulas={props.formulas}
-                        formulaType={formulaType}
-                        formulaChoice={props.formulaChoice}
-                        currentFormulaChoice={formulaChoice}
-                        saveChoice={setFormulaChoice}
+                        selectedFormula={selectedFormula}
+                        formulasPrices={formulasPrices}
+                        saveChoice={setSelectedFormula}
                     />
                 }
                 {
-                    formulaChoice &&
+                    selectedFormulaType && selectedFormulaType.id === FORMULA_TYPE_CUSTOM_ID &&
+                    <Tasks
+                        key={"step-tasksChoice"}
+                        availableTasks={availableTasks}
+                        selectedTasks={selectedTasks}
+                        saveChoice={setSelectedTasks}
+                    />
+                }
+                {
+                    (
+                        (selectedFormula && selectedFormulaType.id === FORMULA_TYPE_READY_ID)
+                        || (selectedTasks && selectedTasks.length>0 && selectedFormulaType && selectedFormulaType.id === FORMULA_TYPE_CUSTOM_ID )
+                    )
+                    &&
+                    <Slots
+                        key={"step-slotChoice"}
+                        saveChoice={setPersonalInfos}
+                    />
+                }
+                {
+                    (
+                        (selectedFormula && selectedFormulaType.id === FORMULA_TYPE_READY_ID)
+                        || (selectedTasks && selectedTasks.length>0 && selectedFormulaType && selectedFormulaType.id === FORMULA_TYPE_CUSTOM_ID )
+                    )
+                    &&
                     <PersonalInfosStep
                         key={"step-reservationInfos"}
                         saveChoice={setPersonalInfos}
@@ -79,7 +137,7 @@ const Services = props => {
             <Container>
                 <Row>
                     <h2 className={"mt-5 mb-5"}>Prestations</h2>
-                    {mounted? renderSteps() : <div>Its loading</div>}
+                    {renderSteps()}
                 </Row>
             </Container>
             <Footer className={"position-sticky"} />

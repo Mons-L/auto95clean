@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "stripe:listen": "stripe listen --forward-to localhost:3000/api/stripeWebhook --latest"
   },
   "dependencies": {
     "@stripe/react-stripe-js": "^2.1.1",
@@ -16,13 +17,15 @@
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
     "express-validator": "^6.15.0",
+    "micro": "^10.0.1",
     "next": "13.2.4",
     "next-connect": "^0.13.0",
     "next-usequerystate": "^1.7.3",
     "react": "18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-dom": "18.2.0",
-    "serverless-mysql": "^1.5.4"
+    "serverless-mysql": "^1.5.4",
+    "stripe": "^12.10.0"
   },
   "devDependencies": {
     "file-loader": "^6.2.0"

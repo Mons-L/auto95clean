@@ -1,4 +1,4 @@
-import vehiclesTypesDB from "../../../database/vehiclesTypes.db.service";
+import vehiclesTypesDB from "../../../../database/vehiclesTypes.db.service";
 
 const valideId = (id) => {
     return !isNaN(id);

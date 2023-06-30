@@ -38,16 +38,21 @@ module.exports = {
         }
     },
 
-    async insertTask(label, price){
+    async insertTask(label, price, transaction){
+        let queryMethod = transaction? await db.queryTransaction : db.query
         try{
-            const result = await db.query(INSERT_TASK, [label, price]);
+            let result = await queryMethod(INSERT_TASK, [label, price], transaction);
 
-            if(result.affectedRows !== 1){
-                console.error("Insert task went bad. The expected number of affected rows is wrong."
-                    + " Expected: 1, affected rows: " + result.affectedRows);
-                return false;
+            if(transaction)
+                return result
+            else {
+                if (result.affectedRows !== 1) {
+                    console.error("Insert task went bad. The expected number of affected rows is wrong."
+                        + " Expected: 1, affected rows: " + result.affectedRows);
+                    return false;
+                }
+                return result.insertId;
             }
-            return result.insertId;
         }
         catch(err){
             const message = "[tasks.db.service] Inserting task with values: { label: "

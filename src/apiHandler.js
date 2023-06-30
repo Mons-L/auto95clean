@@ -69,8 +69,8 @@ export default {
             .catch(errorHandler)
     },
 
-    fetchFormulasPrices(){
-        return this.apiServer.get("/formulas-prices")
+    fetchFormulasPrices(vehicleTypeId){
+        return this.apiServer.get("/vehicles-types/" + vehicleTypeId + "/formulas")
             .then(response => response.data)
             .catch(errorHandler)
     }

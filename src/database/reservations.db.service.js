@@ -2,7 +2,8 @@ import db from './db.service';
 
 const SELECT_RESERVATION = 'SELECT * FROM reservation';
 const SELECT_RESERVATION_BY_ID = 'SELECT * FROM reservation WHERE id=?';
-const INSERT_RESERVATION = 'INSERT INTO reservation(state, reservation_date, user_id, formula_id) VALUES(?, ?, ?, ?)';
+const SELECT_RESERVATION_BETWEEN_DATES = 'SELECT * FROM reservation WHERE NOT ((start_date >= ? AND end_date > ?) OR (start_date < ? AND end_date <= ?))'
+const INSERT_RESERVATION = 'INSERT INTO reservation(state, start_date, end_date, email, phone, immatriculation, user_id, formula_id) VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
 const UPDATE_RESERVATION = 'UPDATE reservation SET state=?, reservation_date=?, formula_id=? WHERE id=?';
 const DELETE_RESERVATION = 'DELETE FROM reservation WHERE id=?';
 
@@ -38,21 +39,44 @@ module.exports = {
         }
     },
 
-    async insertReservation(state, reservationDate, userId, formulaId){
+    async getResevationsBetweenDates(startDate, endDate){
         try{
-            const result = await db.query(INSERT_RESERVATION, [state, reservationDate, userId, formulaId]);
+            return await db.query(SELECT_RESERVATION_BETWEEN_DATES, [endDate, endDate, startDate, startDate]);
 
-            if(result.affectedRows !== 1){
-                console.error("Insert reservation went bad. The expected number of affected rows is wrong."
-                    + " Expected: 1, affected rows: " + result.affectedRows);
-                return false;
+        }
+        catch(err){
+            const message = "[reservations.db.service] Getting reservation went bad. Reason: " + err;
+            console.error(message);
+            throw message;
+        }
+        finally{
+            await db.end();
+        }
+    },
+
+    async insertReservation(state, startDate, endDate, email, phone, immatrculation, userId, formulaId, transaction){
+        let queryMethod = transaction? await db.queryTransaction : await db.query
+
+        try {
+            let result = await queryMethod(INSERT_RESERVATION,
+                [state, startDate, endDate, email, phone, immatrculation, userId, formulaId], transaction);
+
+            if (transaction)
+                return result
+            else {
+                if (result.affectedRows !== 1) {
+                    console.error("Insert reservation went bad. The expected number of affected rows is wrong."
+                        + " Expected: 1, affected rows: " + result.affectedRows);
+                    return false;
+                }
+                return result.insertId;
             }
-            return result.insertId;
         }
         catch(err){
             const message = '[reservations.db.service] Inserting reservation with values { state: '
-                + state + ', reservation_date: ' + reservationDate + ', user_id: ' + userId
-                + ', formula_id: ' + formulaId + ' } went bad. Reason: ' + err;
+                + state + ', startDate: ' + startDate + ', endDate: ' + endDate
+                +  ', email: ' + email +  ', phone: ' + phone +  ', immatriculation: ' + immatrculation
+                + ', user_id: ' + userId + ', formula_id: ' + formulaId + ' } went bad. Reason: ' + err;
 
             console.error(message);
             throw message;

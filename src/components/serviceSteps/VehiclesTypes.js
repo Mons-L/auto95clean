@@ -4,7 +4,7 @@ import {
     Row
 } from "react-bootstrap";
 
-const VehicleTypeStep = props => {
+const VehiclesTypes = props => {
     return(
         <Row className={"stepBackground mb-5"}>
             <h3 className={"mt-3"}>Quel est votre type de véhicule ?</h3>
@@ -16,7 +16,7 @@ const VehicleTypeStep = props => {
                                 key={"vehicle-type-"+ vehicleType.id}
                                 xl={2}
                                 role={"button"}
-                                className={"border rounded-3 border-3 m-5 p-2 text-center choiceBackground" + (props.currentVehicleType && props.currentVehicleType.id === vehicleType.id ? " choosedBackground" : "")}
+                                className={"border rounded-3 border-3 m-5 p-2 text-center choiceBackground" + (props.selectedVehicleType && props.selectedVehicleType.id === vehicleType.id ? " choosedBackground" : "")}
                                 onClick={() => props.saveChoice(vehicleType)}
                             >
                                 <h3 className={"font-size-15 mb-4"}>{vehicleType.label}</h3>
@@ -31,4 +31,4 @@ const VehicleTypeStep = props => {
     )
 }
 
-export default VehicleTypeStep
+export default VehiclesTypes

@@ -2,6 +2,7 @@ import db from './db.service';
 
 const SELECT_FORMULA = 'SELECT * FROM formula';
 const SELECT_FORMULA_BY_TYPE_ID = 'SELECT * FROM formula WHERE formula_type_id=?';
+const SELECT_FORMULA_VEHICLE_TYPE_BY_VEHICLE_TYPE_ID = 'SELECT * FROM formula_vehicle_type WHERE vehicle_type_id=?';
 const SELECT_FORMULA_BY_ID = 'SELECT * FROM formula WHERE id=?';
 const INSERT_FORMULA = 'INSERT INTO formula(label, description, formula_type_id) VALUES (?, ?, ?)';
 const UPDATE_FORMULA = 'UPDATE formula SET label=?, description=?, formula_type_id=? WHERE id=?';
@@ -120,6 +121,20 @@ module.exports = {
             const message = '[formulas.db.service] Deleting formula with value { id: '
                 + id + ' } went bad. Reason: ' + err;
 
+            console.error(message);
+            throw message;
+        }
+        finally {
+            await db.end();
+        }
+    },
+
+    async getFormulasPricesByVehicleTypeId(id){
+        try {
+            return await db.query(SELECT_FORMULA_VEHICLE_TYPE_BY_VEHICLE_TYPE_ID, [id]);
+        }
+        catch(err){
+            const message = '[formulas.db.service] Getting formulas went bad. Reason: ' + err;
             console.error(message);
             throw message;
         }
