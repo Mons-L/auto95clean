@@ -113,7 +113,8 @@ const Services = props => {
                     &&
                     <Slots
                         key={"step-slotChoice"}
-                        saveChoice={setPersonalInfos}
+                        selectedSlot={selectedSlot}
+                        saveChoice={setSelectedSlot}
                     />
                 }
                 {

@@ -55,3 +55,15 @@ body {
   border-radius: 10px;
   box-shadow: -2px -2px 30px #b9b9b9;
 }
+
+.calendarSlot {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background-color: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}

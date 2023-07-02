@@ -73,5 +73,11 @@ export default {
         return this.apiServer.get("/vehicles-types/" + vehicleTypeId + "/formulas")
             .then(response => response.data)
             .catch(errorHandler)
+    },
+
+    fetchAvailableSlots(){
+        return this.apiServer.get("/availabilities?fromDate=2023-07-02&dayNumber=6&slotDuration=120")
+            .then(response => response.data)
+            .catch(errorHandler)
     }
 }
