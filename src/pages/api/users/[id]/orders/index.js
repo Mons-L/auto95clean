@@ -35,7 +35,7 @@ const handleGet = async (req, res) => {
             else{
                 orders.push({
                     id: value.orderId,
-                    orderDate: value.orderDate,
+                    date: value.orderDate,
                     deliveryType: value.deliveryType,
                     deliveryCharges: value.deliveryCharges,
                     paymentMode: value.paymentMode,
@@ -55,7 +55,6 @@ const handleGet = async (req, res) => {
 
         orders = await Promise.all(orders.map(async order => {
             order = {...order, addresses: await ordersDB.getOrderJoinAddressesByOrderId(order.id)}
-            console.log(await ordersDB.getOrderJoinAddressesByOrderId(order.id))
             return order
         }))
         return res.status(200).json({
