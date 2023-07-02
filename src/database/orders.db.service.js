@@ -1,9 +1,9 @@
 import db from './db.service';
 
 const SELECT_ORDERS = 'SELECT * FROM orders';
-const SELECT_ORDERS_BY_USER_ID = 'SELECT * FROM orders WHERE user_id=?';
-const SELECT_ORDERS_JOIN_PRODUCT_BY_USER_ID = 'SELECT * FROM orders ord INNER JOIN orders_product op on ord.id = op.order_id INNER JOIN product p on op.product_id = p.id WHERE user_id=?';
-const SELECT_ORDERS_JOIN_ADRESSES_BY_ORDER_ID = 'SELECT * FROM orders ord INNER JOIN orders_address oa on ord.id = oa.order_id INNER JOIN address a on oa.address_id = a.id WHERE order_id=?';
+const SELECT_ORDERS_BY_USER_ID = 'SELECT * FROM orders WHERE userId=?';
+const SELECT_ORDERS_JOIN_PRODUCT_BY_USER_ID = 'SELECT o.id AS orderId, o.orderDate, o.deliveryType, o.deliveryCharges, o.paymentMode, o.status, p.id AS productId, p.label, p.imagePath, p.price, op.quantity FROM orders o INNER JOIN orders_product op on o.id = op.orderId INNER JOIN product p on p.id = op.productId WHERE userId=?';
+const SELECT_ORDERS_JOIN_ADRESSES_BY_ORDER_ID = 'SELECT a.id, a.fullname, a.number, a.label, a.phone, oa.type AS addressType FROM orders o INNER JOIN orders_address oa on o.id = oa.orderId INNER JOIN address a on a.id = oa.addressId WHERE orderId=?';
 
 
 module.exports = {

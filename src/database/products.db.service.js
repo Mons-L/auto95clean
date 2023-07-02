@@ -6,8 +6,8 @@ const ORDER_BY_DESCENDING_PRICE = ' order by price DESC';
 const SELECT_PRODUCT_BY_ID = 'SELECT * FROM product WHERE id=?'
 const SELECT_PRODUCT_BY_SEARCH = 'SELECT * FROM product WHERE label LIKE ? OR description LIKE ?'
 const FILTER_BY_CATEGORIES = ' WHERE category IN(?)'
-const INSERT_PRODUCT = 'INSERT INTO product(label, description, image_path, price, quantity) VALUES(?, ?, ?, ?, ?)';
-const UPDATE_PRODUCT = 'UPDATE product SET label=?, description=?, image_path=?, price=?, quantity=? WHERE id=?';
+const INSERT_PRODUCT = 'INSERT INTO product(label, description, imagePath, price, quantity) VALUES(?, ?, ?, ?, ?)';
+const UPDATE_PRODUCT = 'UPDATE product SET label=?, description=?, imagePath=?, price=?, quantity=? WHERE id=?';
 const DELETE_PRODUCT = 'DELETE FROM product WHERE id=?';
 
 module.exports = {

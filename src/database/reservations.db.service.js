@@ -2,9 +2,9 @@ import db from './db.service';
 
 const SELECT_RESERVATION = 'SELECT * FROM reservation';
 const SELECT_RESERVATION_BY_ID = 'SELECT * FROM reservation WHERE id=?';
-const SELECT_RESERVATION_BETWEEN_DATES = 'SELECT * FROM reservation WHERE NOT ((start_date >= ? AND end_date > ?) OR (start_date < ? AND end_date <= ?))'
-const INSERT_RESERVATION = 'INSERT INTO reservation(state, start_date, end_date, email, phone, immatriculation, user_id, formula_id) VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
-const UPDATE_RESERVATION = 'UPDATE reservation SET state=?, reservation_date=?, formula_id=? WHERE id=?';
+const SELECT_RESERVATION_BETWEEN_DATES = 'SELECT * FROM reservation WHERE NOT ((startDate >= ? AND endDate > ?) OR (startDate < ? AND endDate <= ?))'
+const INSERT_RESERVATION = 'INSERT INTO reservation(state, startDate, endDate, email, phone, immatriculation, userId, formulaId) VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
+const UPDATE_RESERVATION = 'UPDATE reservation SET state=?, reservation_date=?, formulaId=? WHERE id=?';
 const DELETE_RESERVATION = 'DELETE FROM reservation WHERE id=?';
 
 module.exports = {

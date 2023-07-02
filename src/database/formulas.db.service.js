@@ -1,11 +1,11 @@
 import db from './db.service';
 
 const SELECT_FORMULA = 'SELECT * FROM formula';
-const SELECT_FORMULA_BY_TYPE_ID = 'SELECT * FROM formula WHERE formula_type_id=?';
-const SELECT_FORMULA_VEHICLE_TYPE_BY_VEHICLE_TYPE_ID = 'SELECT * FROM formula_vehicle_type WHERE vehicle_type_id=?';
+const SELECT_FORMULA_BY_TYPE_ID = 'SELECT * FROM formula WHERE formulaTypeId=?';
+const SELECT_FORMULA_VEHICLE_TYPE_BY_VEHICLE_TYPE_ID = 'SELECT * FROM formula_vehicle_type WHERE vehicleTypeId=?';
 const SELECT_FORMULA_BY_ID = 'SELECT * FROM formula WHERE id=?';
-const INSERT_FORMULA = 'INSERT INTO formula(label, description, formula_type_id) VALUES (?, ?, ?)';
-const UPDATE_FORMULA = 'UPDATE formula SET label=?, description=?, formula_type_id=? WHERE id=?';
+const INSERT_FORMULA = 'INSERT INTO formula(label, description, formulaTypeId) VALUES (?, ?, ?)';
+const UPDATE_FORMULA = 'UPDATE formula SET label=?, description=?, formulaTypeId=? WHERE id=?';
 const DELETE_FORMULA = 'DELETE FROM formula WHERE id=?';
 
 module.exports = {
