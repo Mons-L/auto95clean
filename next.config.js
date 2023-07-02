@@ -3,7 +3,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['www.sourcedessens.fr'],
+    domains: ['www.sourcedessens.fr', 'm.media-amazon.com'],
   },
 }
 

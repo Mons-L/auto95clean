@@ -1,9 +1,10 @@
 import MyNavBar from "../components/mynavbar/MyNavBar";
 import Footer from "../components/footer/Footer";
+
 import MyInformations from "../components/dashboardSection/MyInformations";
-import MyWashes from "../components/dashboardSection/MyWashes";
 import MyOrders from "../components/dashboardSection/MyOrders";
 import MyPreferences from "../components/dashboardSection/MyPreferences";
+import MyWashes from "../components/dashboardSection/MyWashes";
 
 import {
     Col,
@@ -11,34 +12,24 @@ import {
     Row
 } from "react-bootstrap";
 
-import {
-    useState
-} from "react";
+import {useState} from "react";
 
 const MY_INFORMATIONS_TAB_KEY = "MyInformations"
 const MY_WASHES_TAB_KEY = "MyWahes"
 const MY_ORDERS_TAB_KEY = "MyOrders"
 const MY_PREFERENCES_TAB_KEY = "MyPreferences"
 
-const dashboard = props => {
+const Dashboard = props => {
 
-    const [selectedTab, setSelectedTab] = useState("MyInformations")
+    const [selectedTab, setSelectedTab] = useState(MY_INFORMATIONS_TAB_KEY)
 
     const renderSections = () => {
         return (
             <>
-                {
-                    selectedTab === MY_INFORMATIONS_TAB_KEY && <MyInformations />
-                }
-                {
-                    selectedTab === MY_WASHES_TAB_KEY && <MyWashes />
-                }
-                {
-                    selectedTab === MY_ORDERS_TAB_KEY && <MyOrders />
-                }
-                {
-                    selectedTab === MY_PREFERENCES_TAB_KEY && <MyPreferences />
-                }
+                { selectedTab === MY_INFORMATIONS_TAB_KEY && <MyInformations /> }
+                { selectedTab === MY_WASHES_TAB_KEY && <MyWashes /> }
+                { selectedTab === MY_ORDERS_TAB_KEY && <MyOrders /> }
+                { selectedTab === MY_PREFERENCES_TAB_KEY && <MyPreferences /> }
             </>
         )
     }
@@ -100,4 +91,4 @@ const dashboard = props => {
     )
 }
 
-export default dashboard;
+export default Dashboard;

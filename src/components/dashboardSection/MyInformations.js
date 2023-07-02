@@ -13,9 +13,7 @@ const client = {
     password: "*********",
     phone: "07 89 78 46 32",
     birthday: new Date(2018, 8, 22)
-
 }
-
 
 const MyInformations = props => {
     return(
@@ -32,11 +30,16 @@ const MyInformations = props => {
                                 type={"firstname"}
                                 className={"me-4"}
                                 value={client.firstName}
+                                onChange={() => console.log("aa")}
                             />
                             <Form.FloatingLabel label={""}>
                                 <span className="input-group-text">Nom</span>
                             </Form.FloatingLabel>
-                            <Form.Control type={"lastname"} value={client.lastName} />
+                            <Form.Control
+                                type={"lastname"}
+                                value={client.lastName}
+                                onChange={() => console.log("aa")}
+                            />
                         </Form.Group>
 
                         <Form.Group className={"d-flex m-4"}>
@@ -53,7 +56,7 @@ const MyInformations = props => {
                             </Form.FloatingLabel>
                             <Form.Control type={"password"} placeholder={client.password} />
                         </Form.Group>
-                        
+
                         <Form.Group className={"d-flex m-4"}>
                             <Form.FloatingLabel label={""}>
                                 <span className="input-group-text">Numéro de téléphone</span>
@@ -71,6 +74,7 @@ const MyInformations = props => {
                             <Form.Control
                                 type={"date"}
                                 value={client.birthday}
+                                onChange={() => console.log("aa")}
                             />
                         </Form.Group>
 
