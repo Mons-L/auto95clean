@@ -1,4 +1,4 @@
-INSERT INTO product(label, description, image_path, price, quantity, category) VALUES
+INSERT INTO product(label, description, imagePath, price, quantity, category) VALUES
     ("Parfum Linge Propre", "Le parfum Linge Propre viendra enchanter vos pièces d''une flagrance qui rappelle le linge tout juste lavé qui sèche au soleil. ", "https://www.sourcedessens.fr/wp-content/webp-express/webp-images/uploads/2021/05/150ml-Linge-Propre.jpg.webp", 9.99, 20, "cat1" ),
     ("Parfum Voile de Coton", "Laissez vous envelopper de notre délicat Voile de Coton. Une senteur florale, intime et douce, qui sent bon le propre et le frais.", "https://www.sourcedessens.fr/wp-content/webp-express/webp-images/uploads/2021/05/150ml-Voile-de-Coton.jpg.webp", 9.99, 20, "cat1" ),
     ("Parfum Mon Premier Doudou", "Embrassez et sentez la délicate douceur d''une peau de bébé. Avec mon Premier Doudou parfum textile, retrouvez chaque jour l''affection qu''une mère porte à son enfant. ", "https://www.sourcedessens.fr/wp-content/webp-express/webp-images/uploads/2021/05/150ml-Mon-Premier-Doudou.jpg.webp", 9.99, 20, "cat1" ),
