@@ -22,26 +22,31 @@ const handleGet = async (req, res) => {
         const values = await ordersDB.getOrdersJoinProductsByUserId(userId);
 
         values.forEach(value => {
-            let order = orders.find(order => order.id === value['order_id'])
+            let order = orders.find(order => order.id === value.orderId)
             if(order){
                 order.products.push({
-                    id: value.product_id,
+                    id: value.productId,
                     label: value.label,
                     price: value.price,
-                    quantity: value['p.quantity'],
-                    imagePath: value.image_path
+                    quantity: value.quantity,
+                    imagePath: value.imagePath
                 })
             }
             else{
                 orders.push({
-                    id: value['order_id'],
+                    id: value.orderId,
+                    orderDate: value.orderDate,
+                    deliveryType: value.deliveryType,
+                    deliveryCharges: value.deliveryCharges,
+                    paymentMode: value.paymentMode,
+                    status: value.status,
                     products: [
                         {
-                            id: value.product_id,
+                            id: value.productId,
                             label: value.label,
                             price: value.price,
-                            quantity: value['p.quantity'],
-                            imagePath: value.image_path
+                            quantity: value.quantity,
+                            imagePath: value.imagePath
                         }
                     ]
                 })
@@ -50,6 +55,7 @@ const handleGet = async (req, res) => {
 
         orders = await Promise.all(orders.map(async order => {
             order = {...order, addresses: await ordersDB.getOrderJoinAddressesByOrderId(order.id)}
+            console.log(await ordersDB.getOrderJoinAddressesByOrderId(order.id))
             return order
         }))
         return res.status(200).json({

@@ -10,14 +10,30 @@ CREATE TABLE product(
 
 CREATE TABLE formula_type(
     id INT AUTO_INCREMENT,
-    label VARCHAR(50) NOT NULL,
+    label VARCHAR(512) NOT NULL,
     PRIMARY KEY(id)
 );
+
+CREATE TABLE holidays(
+    id INT AUTO_INCREMENT,
+    start_date DATETIME NOT NULL,
+    end_date DATETIME NOT NULL,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE opening_hours(
+    week_day INT,
+    morning_start_time TIME NULL,
+    morning_end_time TIME NULL,
+    evening_start_time TIME NULL,
+    evening_end_time TIME NULL,
+    PRIMARY KEY(week_day)
+);
+
 
 CREATE TABLE formula(
     id INT AUTO_INCREMENT,
     label VARCHAR(256) NOT NULL,
-    description VARCHAR(512) NOT NULL,
     formula_type_id INT NOT NULL,
     PRIMARY KEY(id),
     FOREIGN KEY(formula_type_id) REFERENCES formula_type(id)
@@ -33,6 +49,7 @@ CREATE TABLE city(
 CREATE TABLE task(
     id INT AUTO_INCREMENT,
     label VARCHAR(256) NOT NULL,
+    type VARCHAR(256) NOT NULL,
     price DECIMAL(6,2) NOT NULL,
     PRIMARY KEY(id)
 );
@@ -41,6 +58,7 @@ CREATE TABLE vehicle_type(
     id INT AUTO_INCREMENT,
     label VARCHAR(256) NOT NULL,
     description VARCHAR(512) NOT NULL,
+    imagePath VARCHAR(256) NOT NULL,
     PRIMARY KEY(id)
 );
 
@@ -109,18 +127,17 @@ CREATE TABLE orders_address(
 CREATE TABLE reservation(
     id INT AUTO_INCREMENT,
     state VARCHAR(256) NOT NULL,
-    reservation_date DATETIME NOT NULL,
+    start_date DATETIME NOT NULL,
+    end_date DATETIME NOT NULL,
     email VARCHAR(255) NOT NULL,
     phone CHAR(10),
     immatriculation VARCHAR(20) NOT NULL,
-    user_id INT NOT NULL,
+    user_id INT,
     formula_id INT NOT NULL,
     PRIMARY KEY(id),
     FOREIGN KEY(user_id) REFERENCES users(id),
     FOREIGN KEY(formula_id) REFERENCES formula(id)
 );
-
-
 
 CREATE TABLE formula_task(
     formula_id INT,

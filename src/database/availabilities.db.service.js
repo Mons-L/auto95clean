@@ -1,6 +1,6 @@
 const db = require("./db.service");
-const SELECT_HOLIDAYS_BETWEEN_DATES = 'SELECT * FROM holidays WHERE ? BETWEEN start_date AND end_date OR ? BETWEEN start_date AND end_date'
-const SELECT_OPENING_HOURS_BY_WEEK_DAY = 'SELECT * FROM opening_hours WHERE WEEKDAY(?)=week_day'
+const SELECT_HOLIDAYS_BETWEEN_DATES = 'SELECT * FROM holidays WHERE ? BETWEEN startDate AND endDate OR ? BETWEEN startDate AND endDate'
+const SELECT_OPENING_HOURS_BY_WEEK_DAY = 'SELECT * FROM opening_hours WHERE WEEKDAY(?)=weekDay'
 const SELECT_CALENDAR_AVAILABILITIES_BY_INTERVAL = 'SELECT * FROM (\n' +
     '    SELECT DATE_ADD(?, INTERVAL num DAY) AS date FROM(\n' +
     '        SELECT ROW_NUMBER() OVER (ORDER BY a.num + b.num * 10 + c.num * 100) - 1 AS num\n' +

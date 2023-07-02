@@ -1,11 +1,11 @@
 import db from './db.service';
 
 const SELECT_FORMULA_TASK = 'SELECT * FROM formula_task'
-const SELECT_FORMULA_TASK_BY_FORMULA_ID = 'SELECT * FROM formula_task WHERE formula_id=?'
-const SELECT_FORMULA_TASK_BY_TASK_ID = 'SELECT * FROM formula_task WHERE task_id=?'
-const INSERT_FORMULA_TASK = 'INSERT INTO formula_task(formula_id, task_id) VALUES (?, ?)';
-const DELETE_FORMULA_TASK = 'DELETE FROM formula_task WHERE formula_id=? AND task_id=?';
-const SELECT_FORMULA_JOIN_TASK_BY_FORMULA_TYPE_ID = 'SELECT formula_id, task_id, f.label AS formulaLabel, t.label AS taskLabel, t.type AS taskType, t.price AS taskPrice FROM formula AS f INNER JOIN formula_task ON f.id=formula_task.formula_id INNER JOIN task AS t ON t.id=formula_task.task_id WHERE formula_type_id=?'
+const SELECT_FORMULA_TASK_BY_FORMULA_ID = 'SELECT * FROM formula_task WHERE formulaId=?'
+const SELECT_FORMULA_TASK_BY_TASK_ID = 'SELECT * FROM formula_task WHERE taskId=?'
+const INSERT_FORMULA_TASK = 'INSERT INTO formula_task(formulaId, taskId) VALUES (?, ?)';
+const DELETE_FORMULA_TASK = 'DELETE FROM formula_task WHERE formulaId=? AND taskId=?';
+const SELECT_FORMULA_JOIN_TASK_BY_FORMULA_TYPE_ID = 'SELECT formulaId, taskId, f.label AS formulaLabel, t.label AS taskLabel, t.type AS taskType, t.price AS taskPrice FROM formula AS f INNER JOIN formula_task ON f.id=formula_task.formulaId INNER JOIN task AS t ON t.id=formula_task.taskId WHERE formulaTypeId=?'
 
 module.exports = {
     async getFormulasTasks(){

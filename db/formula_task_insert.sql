@@ -1,4 +1,4 @@
-INSERT INTO formula_task(formula_id, task_id) VALUES
+INSERT INTO formula_task(formulaId, taskId) VALUES
     (1,1),
     (1,2),
     (1,11),

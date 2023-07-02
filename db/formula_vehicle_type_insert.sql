@@ -1,4 +1,4 @@
-INSERT INTO formula_vehicle_type(formula_id, vehicle_type_id, price) VALUES
+INSERT INTO formula_vehicle_type(formulaId, vehicleTypeId, price) VALUES
     (1, 1, 40.00),
     (1, 2, 50.00),
     (1, 3, 60.00),
