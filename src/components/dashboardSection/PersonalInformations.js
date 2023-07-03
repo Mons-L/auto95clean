@@ -15,7 +15,7 @@ const client = {
     birthday: new Date(2018, 8, 22)
 }
 
-const MyInformations = props => {
+const PersonalInformations = props => {
     return(
         <Row>
             <h3>Mes informations personnelles</h3>
@@ -85,4 +85,4 @@ const MyInformations = props => {
     )
 }
 
-export default MyInformations
+export default PersonalInformations

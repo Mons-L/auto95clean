@@ -1,22 +1,27 @@
 import Head from 'next/head'
-import { Inter } from 'next/font/google'
 import MyNavBar from "../components/mynavbar/MyNavBar";
 import Footer from "../components/footer/Footer";
+
 import imageLavage1 from "../resources/images/lavage_1.png"
 import imageLavage2 from "../resources/images/lavage_2.png"
 import imageLavage3 from "../resources/images/lavage_3.png"
 import calendar from "../resources/images/icones/calendar.png"
 import location from "../resources/images/icones/location.png"
 import contact from "../resources/images/icones/contact.png"
+
 import Image from 'next/image'
+
 import {
     Button,
     Col,
     Container,
     Row
 } from "react-bootstrap";
-import {useEffect, useRef} from "react";
 
+import {
+    useEffect,
+    useRef
+} from "react";
 
 export default function Home() {
     const myRef = useRef()
@@ -43,37 +48,31 @@ export default function Home() {
                     <p>Lavage automobile à la main</p>
                 </div>
             </Row>
-            <Row className={"header-background text-center align-items-center"}>
-                <div className={"title-background"}>
-                    <h1>Auto95Clean by ATF</h1>
-                    <p>Lavage automobile à la main</p>
-                </div>
-            </Row>
             <Container className={"mb-5"}>
-                <Row>
+                <Row className={"mt-5 mb-5"}>
                     <Col className="col-md-4 justify-content-center">
                         <Row>
-                            <Col className={"col-md-3 d-inline-block"}>
+                            <Col md={3}>
                                 <Image className={"me-0"} src={calendar} width={40} height={40} alt={"Lavage 1"}/>
                             </Col>
-                            <Col className={"col-md-9 d-inline-block"}>
+                            <Col md={9}>
                                 <p className={"fw-bold"}>Prendre rendez-vous</p>
                                 <p>Créneaux réservés</p>
                             </Col>
                         </Row>
                     </Col>
-                    <Col className="col-md-4 justify-content-center">
+                    <Col md={4}>
                         <Row>
-                            <Col className={"col-md-3 d-inline-block"}>
+                            <Col md={3}>
                                 <Image src={location} width={30} height={40} alt={"Lavage 1"}/>
                             </Col>
-                            <Col className={"col-md-9 d-inline-block"}>
+                            <Col md={9} className={"col-md-9 d-inline-block"}>
                                 <p className={"fw-bold"}>Venir à nous</p>
                                 <p>88 Rue Michel Carré, 95100 Argenteuil</p>
                             </Col>
                         </Row>
                     </Col>
-                    <Col className="col-md-4 justify-content-center">
+                    <Col md={4} className="justify-content-center">
                         <Row>
                             <Col className={"col-md-3 d-inline-block"}>
                                 <Image src={contact} width={40} height={40} alt={"Lavage 1"}/>
@@ -85,7 +84,7 @@ export default function Home() {
                         </Row>
                     </Col>
                 </Row>
-                <Row className={"justify-content-center"}>
+                <Row className={"justify-content-center mt-5 mb-5"}>
                     <Col className={"col-md-11 text-center"}>
                         <h2>Lavage automobile à la main</h2>
                         <p>
@@ -94,29 +93,40 @@ export default function Home() {
                         </p>
                     </Col>
                 </Row>
-                <Row>
-                    <Button>
-                        Choisis ta formule
-                    </Button>
-                    <Button className={"testButton"}>
-                        Composes ton lavage
-                    </Button>
-                </Row>
-                <Row className={"justify-content-center"}>
-                    <Col className={"col-md-11 text-center"}>
-                        <h2>Lavage de qualité supérieur</h2>
-                        <p>
-                            Nos professionnels sont équipés des dernières technologies et techniques de nettoyage pour assurer la meilleure qualité de service possible.
-                        </p>
-                        <div className={"poslative"} ref={myRef}>
-                            <Image src={imageLavage1} width={400} height={500} style={{ zIndex: "3", position: "absolute", marginLeft: "-1000px", transform: "translateX (-1000px)"}} />
-                            <Image src={imageLavage2} width={600} height={300}  style={{marginLeft: "-150px", zIndex: "2"}} />
-                            <Image src={imageLavage3} width={600} height={300}  style={{marginTop: "-150px", zIndex: "3"}} />
-                        </div>
+                <Row className={"mt-5 mb-5"}>
+                    <Col>
+                        <Button variant="light">Choisis ta formule</Button>
+                    </Col>
+                    <Col>
+                        <Button variant="light">Composes ton lavage</Button>
                     </Col>
                 </Row>
+                <Row>
+                    <div className={"poslative"} ref={myRef}>
+                        <Image
+                            src={imageLavage1}
+                            width={300}
+                            height={400}
+                            style={{ zIndex: "3"}}
+                            alt={"Photo d'une personne nettoyant une voiture"}
+                        />
+                        <Image
+                            src={imageLavage2}
+                            width={500}
+                            height={300}
+                            style={{marginLeft: "-50px", zIndex: "2"}}
+                            alt={"Photo d'une personne nettoyant une voiture"}
+                        />
+                        <Image
+                            src={imageLavage3}
+                            width={500}
+                            height={200}
+                            style={{marginTop: "-50px", zIndex: "3"}}
+                            alt={"Photo d'une personne nettoyant une voiture"}
+                        />
+                    </div>
+                </Row>
             </Container>
-
             <Footer />
         </>
     )

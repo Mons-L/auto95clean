@@ -81,8 +81,26 @@ export default {
             .catch(errorHandler)
     },
 
-    fetchOrdersFullInformations(){
+    fetchUserOrdersFullInformations(){
         return this.apiServer.get("/users/1/orders")
+            .then(response => response.data)
+            .catch(errorHandler)
+    },
+
+    fetchUserReservationsFullInformations(){
+        return this.apiServer.get("/users/1/reservations")
+            .then(response => response.data)
+            .catch(errorHandler)
+    },
+
+    insertMessage({firstname, lastname, email, subject, content}){
+        return this.apiServer.put("/messages", {
+            firstname,
+            lastname,
+            email,
+            subject,
+            content
+        })
             .then(response => response.data)
             .catch(errorHandler)
     }

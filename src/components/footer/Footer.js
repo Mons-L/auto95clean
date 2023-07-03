@@ -1,4 +1,7 @@
 import {Col, Container, Row} from "react-bootstrap";
+import Link from "next/link";
+
+const CONTACT_LINK_KEY = "/contact"
 
 const Footer = props =>{
     return(
@@ -7,7 +10,7 @@ const Footer = props =>{
                 <Col className={'d-flex justify-content-center'}>
                     <div>
                         <p>Contact</p>
-                        <p>Nous contacter</p>
+                        <Link href={ CONTACT_LINK_KEY }>Nous contacter </Link>
                         <p>07 65 62 16 98</p>
                     </div>
                 </Col>
