@@ -24,5 +24,12 @@ module.exports = {
         const seconds = parseInt(values[2])
 
         return hours*60 + minutes + seconds/60
+    },
+
+    handleInput(inputValue, handler, trivialObject, inputName, stateName) {
+        if(trivialObject)
+            handler(inputValue);
+        else
+            handler({...stateName, [inputName]: inputValue})
     }
 }
