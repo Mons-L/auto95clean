@@ -54,8 +54,7 @@ const handleGet = async (req, res) => {
         })
 
         orders = await Promise.all(orders.map(async order => {
-            order = {...order, addresses: await ordersDB.getOrderJoinAddressesByOrderId(order.id)}
-            return order
+            return {...order, addresses: await ordersDB.getOrderJoinAddressesByOrderId(order.id)}
         }))
         return res.status(200).json({
             data: { orders: orders },
