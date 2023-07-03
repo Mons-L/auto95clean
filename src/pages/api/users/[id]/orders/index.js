@@ -39,7 +39,7 @@ const handleGet = async (req, res) => {
                     deliveryType: value.deliveryType,
                     deliveryCharges: value.deliveryCharges,
                     paymentMode: value.paymentMode,
-                    status: value.status,
+                    state: value.state,
                     products: [
                         {
                             id: value.productId,

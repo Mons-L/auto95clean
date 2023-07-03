@@ -2,7 +2,7 @@ import db from './db.service';
 
 const SELECT_RESERVATION = 'SELECT * FROM reservation';
 const SELECT_RESERVATION_BY_ID = 'SELECT * FROM reservation WHERE id=?';
-const SELECT_RESERVATION_JOIN_FORMULA_JOIN_VEHICLE_TYPE_BY_USER_ID = 'SELECT r.id AS id, r.state, r.startDate, r.endDate, r.immatriculation, f.id AS formulaId, f.label AS formulaLabel, vt.id AS vehicleTypeId, vt.label AS vehicleTypeLabel, vt.imagePath AS vehicleTypeImagePath, fvt.price AS formulaPrice FROM reservation r INNER JOIN formula f on r.formulaId = f.id INNER JOIN vehicle_type vt ON r.vehicleTypeId = vt.id INNER JOIN formula_vehicle_type fvt on r.formulaId = fvt.formulaId AND r.vehicleTypeId = fvt.vehicleTypeId WHERE userId=?';
+const SELECT_RESERVATION_JOIN_FORMULA_JOIN_VEHICLE_TYPE_BY_USER_ID = 'SELECT r.id AS id, r.state, r.startDate, r.endDate, r.immatriculation, r.reservationDate, r.paymentMode, f.id AS formulaId, f.label AS formulaLabel, vt.id AS vehicleTypeId, vt.label AS vehicleTypeLabel, vt.imagePath AS vehicleTypeImagePath, fvt.price AS formulaPrice FROM reservation r INNER JOIN formula f on r.formulaId = f.id INNER JOIN vehicle_type vt ON r.vehicleTypeId = vt.id INNER JOIN formula_vehicle_type fvt on r.formulaId = fvt.formulaId AND r.vehicleTypeId = fvt.vehicleTypeId WHERE userId=?';
 const SELECT_RESERVATION_BETWEEN_DATES = 'SELECT * FROM reservation WHERE NOT ((startDate >= ? AND endDate > ?) OR (startDate < ? AND endDate <= ?))'
 const INSERT_RESERVATION = 'INSERT INTO reservation(state, startDate, endDate, email, phone, immatriculation, userId, formulaId) VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
 const UPDATE_RESERVATION = 'UPDATE reservation SET state=?, reservation_date=?, formulaId=? WHERE id=?';
