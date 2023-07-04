@@ -1,10 +1,10 @@
 import MyNavBar from "../components/mynavbar/MyNavBar";
 import Footer from "../components/footer/Footer";
 
-import MyInformations from "../components/dashboardSection/MyInformations";
-import MyOrders from "../components/dashboardSection/MyOrders";
-import MyPreferences from "../components/dashboardSection/MyPreferences";
-import MyWashes from "../components/dashboardSection/MyWashes";
+import PersonalInformations from "../components/dashboardSection/PersonalInformations";
+import Orders from "../components/dashboardSection/Orders";
+import Preferences from "../components/dashboardSection/Preferences";
+import Reservations from "../components/dashboardSection/Reservations";
 
 import {
     Col,
@@ -14,22 +14,22 @@ import {
 
 import {useState} from "react";
 
-const MY_INFORMATIONS_TAB_KEY = "MyInformations"
-const MY_WASHES_TAB_KEY = "MyWahes"
-const MY_ORDERS_TAB_KEY = "MyOrders"
-const MY_PREFERENCES_TAB_KEY = "MyPreferences"
+const PERSONAL_INFORMATIONS_TAB_KEY = "PersonalInformations"
+const RESERVATIONS_TAB_KEY = "Reservations"
+const ORDERS_TAB_KEY = "Orders"
+const PREFERENCES_TAB_KEY = "Preferences"
 
 const Dashboard = props => {
 
-    const [selectedTab, setSelectedTab] = useState(MY_INFORMATIONS_TAB_KEY)
+    const [selectedTab, setSelectedTab] = useState(PERSONAL_INFORMATIONS_TAB_KEY)
 
     const renderSections = () => {
         return (
             <>
-                { selectedTab === MY_INFORMATIONS_TAB_KEY && <MyInformations /> }
-                { selectedTab === MY_WASHES_TAB_KEY && <MyWashes /> }
-                { selectedTab === MY_ORDERS_TAB_KEY && <MyOrders /> }
-                { selectedTab === MY_PREFERENCES_TAB_KEY && <MyPreferences /> }
+                { selectedTab === PERSONAL_INFORMATIONS_TAB_KEY && <PersonalInformations /> }
+                { selectedTab === RESERVATIONS_TAB_KEY && <Reservations /> }
+                { selectedTab === ORDERS_TAB_KEY && <Orders /> }
+                { selectedTab === PREFERENCES_TAB_KEY && <Preferences /> }
             </>
         )
     }
@@ -48,35 +48,34 @@ const Dashboard = props => {
                         <Row
                             type={"button"}
                             className={"mb-3"}
-                            onClick={() => setSelectedTab(MY_INFORMATIONS_TAB_KEY)}
+                            onClick={() => setSelectedTab(PERSONAL_INFORMATIONS_TAB_KEY)}
                         >
-                            <p>Mes informations</p>
+                            <p>Informations personnelles</p>
                         </Row>
                         <Row
                             type={"button"}
                             className={"mb-3"}
-                            onClick={() => setSelectedTab(MY_WASHES_TAB_KEY)}
+                            onClick={() => setSelectedTab(RESERVATIONS_TAB_KEY)}
                         >
-                            <p>Mes lavages</p>
+                            <p>Réservations</p>
                         </Row>
                         <Row
                             type={"button"}
                             className={"mb-3"}
-                            onClick={() => setSelectedTab(MY_ORDERS_TAB_KEY)}
+                            onClick={() => setSelectedTab(ORDERS_TAB_KEY)}
                         >
-                            <p>Mes commandes</p>
+                            <p>Commandes</p>
                         </Row>
                         <Row
                             type={"button"}
                             className={"mb-3"}
-                            onClick={() => setSelectedTab(MY_PREFERENCES_TAB_KEY)}
+                            onClick={() => setSelectedTab(PREFERENCES_TAB_KEY)}
                         >
-                            <p>Mes préférences</p>
+                            <p>Préférences</p>
                         </Row>
                         <Row
                             type={"button"}
                             className={"mb-3"}
-                            onClick={() => setSelectedTab(MY_ORDERS_TAB_KEY)}
                         >
                             <p>Déconnexion</p>
                         </Row>

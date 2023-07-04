@@ -26,10 +26,10 @@ module.exports = {
         return hours*60 + minutes + seconds/60
     },
 
-    handleInput(inputValue, handler, trivialObject, inputName, stateName) {
+    handleInput(inputValue, stateHandler, trivialObject, inputName, state) {
         if(trivialObject)
-            handler(inputValue);
+            stateHandler(inputValue);
         else
-            handler({...stateName, [inputName]: inputValue})
+            stateHandler({...state, [inputName]: inputValue})
     }
 }
