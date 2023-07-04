@@ -34,11 +34,10 @@ const handleGet = async(req, res) => {
 }
 
 const handlePut = async(req, res) => {
-    const label = req.body.label;
-    const price = req.body.price;
+    const {label, type, price } = req.body;
 
     try{
-        const result = await tasksDB.insertTask(label, price);
+        const result = await tasksDB.insertTask(label, type, price);
 
         if(!result){
             const message = "[tasks] Inserting task failed. Something went wrong inserting a task in database";
