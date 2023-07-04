@@ -1,21 +1,10 @@
 const tasksDB = require('../../../database/tasks.db.service');
+import {createRouter, expressWrapper} from "next-connect";
 
-export default async function handler(req, res){
-    const method = req.method;
+const router = createRouter()
 
-    switch(method){
-        case 'GET': return handleGet(req, res);
-        case 'PUT': return handlePut(req, res);
-        default:
-            res.setHeader('Allow', ['GET', 'PUT']);
-            res.status(405).json({
-                data: null,
-                error: { message: 'Method ' + method + ' not allowed' }
-            });
-    }
-}
-
-const handleGet = async(req, res) => {
+router
+    .get(async (req, res) => {
     try{
         const tasks = await tasksDB.getTasks();
         return res.status(200).json({
@@ -31,7 +20,22 @@ const handleGet = async(req, res) => {
             error: { message: message }
         });
     }
-}
+})
+/*
+export default async function handler(req, res){
+    const method = req.method;
+
+    switch(method){
+        case 'GET': return handleGet(req, res);
+        case 'PUT': return handlePut(req, res);
+        default:
+            res.setHeader('Allow', ['GET', 'PUT']);
+            res.status(405).json({
+                data: null,
+                error: { message: 'Method ' + method + ' not allowed' }
+            });
+    }
+}*/
 
 const handlePut = async(req, res) => {
     const {label, type, price } = req.body;
@@ -61,3 +65,10 @@ const handlePut = async(req, res) => {
         });
     }
 }
+
+export default router.handler({
+    onError: (err, req, res) => {
+        console.error(err.stack);
+        res.status(err.statusCode || 500).end(err.message);
+    },
+});
