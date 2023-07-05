@@ -22,7 +22,7 @@ const Formulas = (props) => {
                                 onClick={() => props.saveChoice(formula)}
                             >
                                 <h3>{formula.label}</h3>
-                                <p className={"fw-bold"}>{props.formulasPrices.find(item => item.formula_id === formula.id).price}€</p>
+                                <p className={"fw-bold"}>{props.formulasPrices.find(item => item.formulaId === formula.id).price}€</p>
                                 <p className={"font-size-14 fst-italic"}>
                                     Intérieur : {
                                         formula.tasks.filter(task => task.type === TASK_TYPE_INDOOR).map(task => task.label).join(", ")

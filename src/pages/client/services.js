@@ -162,5 +162,4 @@ export async function getStaticProps() {
             tasks: tasks
         }
     }
-
 }

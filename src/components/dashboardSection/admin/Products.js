@@ -20,23 +20,35 @@ import apiHandler from "../../../apiHandler";
 import Loader from "../../Loader";
 import UpdateProduct from "./modals/UpdateProduct";
 
-const Products = props => {
+const Products = (props) => {
 
     const [products, setProducts] = useState(null)
+    const [productCategories, setProductCategories] = useState(null)
+    const [selectedIndexProduct, setSelectedIndexProduct] = useState(null);
     const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState(null)
-    const [modalShow, setModalShow] = useState(false);
-    const [selectedProduct, setSelectedProduct] = useState(null);
-    const [backdrop, setBackdrop] = useState(true);
 
+    const fetchRequiredDatas = async() => {
+        const fetchedProducts = await apiHandler.fetchProducts()
+        const fetchedProductCategories = await apiHandler.fetchProductCategories()
 
-    useEffect(() => {
-        apiHandler.fetchProducts()
-            .then( (response) => {
-                setProducts(response.data.products)
-                setIsLoading(false)
-            })
+        setProducts(fetchedProducts.data.products)
+        setProductCategories(fetchedProductCategories.data.productCategories)
+    }
+
+    useEffect( () => {
+        fetchRequiredDatas().then(() => setIsLoading(false))
     }, [])
+
+    const updateProduct = (product) => {
+        apiHandler.updateProduct(product)
+            .then( () => {
+                let productsUpdated = products
+                productsUpdated[selectedIndexProduct] = product
+                setProducts(productsUpdated)
+                setSelectedIndexProduct(null)
+            })
+            .catch(err => console.log(err))
+    }
 
     return(
         <Row>
@@ -54,7 +66,7 @@ const Products = props => {
                         <Accordion className={"mb-4"} >
                             {
                                 products ?
-                                    products.map(product => {
+                                    products.map((product, index) => {
                                         return (
                                             <AccordionItem
                                                 key={"order-" + product.id}
@@ -71,55 +83,69 @@ const Products = props => {
                                                         />
                                                     </Col>
                                                     <Col>
-                                                        <p className={"fw-semibold mb-2"}>Nom</p>
-                                                        <p>{product.label}</p>
+                                                        <p className={"fw-semibold"}>{product.label}</p>
                                                     </Col>
                                                 </AccordionHeader>
                                                 <AccordionBody>
-                                                    <Row className={"align-items-center"}>
-                                                        <Col md={12} className={"border-bottom pb-3"}>
+                                                    <Row className={"mt-2"}>
+                                                        <Col>
                                                             <p className={"fw-semibold mb-0"}>Description</p>
-                                                            <p className={"mb-0"}>{product.description}</p>
+                                                            <p>{product.description}</p>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className={"mt-1"}>
+                                                        <Col>
+                                                            <p className={"fw-semibold mb-0"}>Référence</p>
+                                                            <p>{product.id}</p>
                                                         </Col>
                                                         <Col>
-                                                            <p className={"fw-semibold justify-content-end mb-0"}>Prix</p>
-                                                            <p className={"mb-0"}>{product.price} €</p>
+                                                            <p className={"fw-semibold mb-0"}>Prix</p>
+                                                            <p>{product.price} €</p>
                                                         </Col>
+                                                    </Row>
+                                                    <Row className={"mt-1"}>
                                                         <Col>
-                                                            <p className={"fw-semibold mb-0 mt-3"}>Quantité</p>
+                                                            <p className={"fw-semibold mb-0"}>Quantité</p>
                                                             <p>{product.quantity}</p>
                                                         </Col>
                                                         <Col>
-                                                            <p className={"fw-semibold mb-0 mt-3"}>Référence</p>
-                                                            <p>{product.id}</p>
+                                                            <p className={"fw-semibold mb-0"}>Catégorie</p>
+                                                            <p>{productCategories.find(pc => pc.id === product.categoryId).label}</p>
                                                         </Col>
+                                                    </Row>
+                                                    <Row className={"mt-1"}>
+                                                        <p className={"fw-semibold mb-0"}>Lien de l'image</p>
+                                                        <p className={"fst-italic"}>{product.imagePath}</p>
+                                                    </Row>
+                                                    <Row className={"mt-1"}>
                                                         <Button
                                                             className={"fw-semibold"}
                                                             variant="dark"
-                                                            onClick={() => {
-                                                                setModalShow(true)
-                                                                setSelectedProduct(product)
-                                                            }}
+                                                            onClick={() => setSelectedIndexProduct(index)}
                                                         >
                                                             Modifier
                                                         </Button>
-                                                        <UpdateProduct
-                                                            backdrop={backdrop ? "static" : false}
-                                                            show={modalShow}
-                                                            onHide={() => setModalShow(false)}
-                                                            product={product}
-                                                        />
                                                     </Row>
                                                 </AccordionBody>
                                             </AccordionItem>
                                         )
                                     })
                                     :
-                                    <div>Erreur : {error}</div>
+                                    <div>Erreur : une erreur</div>
                             }
                         </Accordion>
                 }
             </Row>
+            {
+                (!isLoading && selectedIndexProduct !== null) &&
+                <UpdateProduct
+                    save={updateProduct}
+                    show={selectedIndexProduct !== null}
+                    product={products[selectedIndexProduct]}
+                    productCategories={productCategories}
+                    onHide={() => setSelectedIndexProduct(null)}
+                />
+            }
         </Row>
     )
 }

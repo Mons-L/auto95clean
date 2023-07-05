@@ -52,20 +52,16 @@ const handleGet = async (req, res) => {
 
 const handlePost = async (req, res) => {
     const id = req.query.id;
-    if(!id || !valideId(id))
+    if(!id)
         return res.status(400).json({
             data: null,
             error: { message: 'The id is missing in the url or does not respect the format' }
         });
 
-    const label = req.body.label;
-    const description = req.body.description;
-    const image_path = req.body.image_path;
-    const price = req.body.price;
-    const quantity = req.body.quantity;
+    const { label, description, imagePath, price, quantity, categoryId } = req.body;
 
     try{
-        const result = await productsDB.updateProduct(label, description, image_path, price, quantity, id);
+        const result = await productsDB.updateProduct(label, description, imagePath, price, quantity, categoryId, id);
 
         if(!result){
             const message = "[products] Updating product failed. Something went wrong updating a product in database";

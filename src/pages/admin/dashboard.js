@@ -88,6 +88,13 @@ const Dashboard = props => {
                             className={"mb-3"}
                             onClick={() => setSelectedTab(ORDERS_TAB_KEY)}
                         >
+                            <p>Catégories</p>
+                        </Row>
+                        <Row
+                            type={"button"}
+                            className={"mb-3"}
+                            onClick={() => setSelectedTab(ORDERS_TAB_KEY)}
+                        >
                             <p>Commandes</p>
                         </Row>
 

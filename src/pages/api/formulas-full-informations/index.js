@@ -22,19 +22,19 @@ const handleGet = async (req, res) => {
         let formulasFullInformations = []
 
         formulasJoinTasks.forEach(formulaJoinTask => {
-            if(!formulasFullInformations.find(formula => formula.id === formulaJoinTask.formula_id)){
+            if(!formulasFullInformations.find(formula => formula.id === formulaJoinTask.formulaId)){
                 formulasFullInformations.push({
-                    id: formulaJoinTask.formula_id,
+                    id: formulaJoinTask.formulaId,
                     label: formulaJoinTask.formulaLabel,
                     tasks: [
-                        {id: formulaJoinTask.task_id, label: formulaJoinTask.taskLabel, type: formulaJoinTask.taskType, price: formulaJoinTask.taskPrice}
+                        {id: formulaJoinTask.taskId, label: formulaJoinTask.taskLabel, type: formulaJoinTask.taskType, price: formulaJoinTask.taskPrice}
                     ]
                 })
             }
             else{
                 let formula = formulasFullInformations
-                    .find(formulaFullInformations => formulaFullInformations.id === formulaJoinTask.formula_id)
-                formula.tasks.push({id: formulaJoinTask.task_id, label: formulaJoinTask.taskLabel, type: formulaJoinTask.taskType, price: formulaJoinTask.taskPrice})
+                    .find(formulaFullInformations => formulaFullInformations.id === formulaJoinTask.formulaId)
+                formula.tasks.push({id: formulaJoinTask.taskId, label: formulaJoinTask.taskLabel, type: formulaJoinTask.taskType, price: formulaJoinTask.taskPrice})
             }
         })
 

@@ -1,13 +1,13 @@
 import db from './db.service';
 
-const SELECT_PRODUCT = 'SELECT * FROM product';
+const SELECT_PRODUCT = 'SELECT p.id, p.label, p.description, p.imagePath, p.price, p.quantity, p.categoryId, pc.label AS categoryLabel FROM product p INNER JOIN product_category pc on p.categoryId = pc.id';
 const ORDER_BY_ASCENDING_PRICE = ' order by price';
 const ORDER_BY_DESCENDING_PRICE = ' order by price DESC';
 const SELECT_PRODUCT_BY_ID = 'SELECT * FROM product WHERE id=?'
 const SELECT_PRODUCT_BY_SEARCH = 'SELECT * FROM product WHERE label LIKE ? OR description LIKE ?'
-const FILTER_BY_CATEGORIES = ' WHERE category IN(?)'
-const INSERT_PRODUCT = 'INSERT INTO product(label, description, imagePath, price, quantity) VALUES(?, ?, ?, ?, ?)';
-const UPDATE_PRODUCT = 'UPDATE product SET label=?, description=?, imagePath=?, price=?, quantity=? WHERE id=?';
+const FILTER_BY_CATEGORIES = ' WHERE categoryId IN(?)'
+const INSERT_PRODUCT = 'INSERT INTO product(label, description, imagePath, price, quantity, categoryId) VALUES(?, ?, ?, ?, ?, ?)';
+const UPDATE_PRODUCT = 'UPDATE product SET label=?, description=?, imagePath=?, price=?, quantity=?, categoryId=? WHERE id=?';
 const DELETE_PRODUCT = 'DELETE FROM product WHERE id=?';
 
 module.exports = {
@@ -116,9 +116,9 @@ module.exports = {
         }
     },
 
-    async updateProduct(label, description, image_path, price, quantity, id){
+    async updateProduct(label, description, imagePath, price, quantity, categoryId, id){
         try {
-            const result = await db.query(UPDATE_PRODUCT, [label, description, image_path, price, quantity, id]);
+            const result = await db.query(UPDATE_PRODUCT, [label, description, imagePath, price, quantity, categoryId, id]);
 
             if(result.affectedRows !== 1){
                 console.error("Update product went bad. The expected number of affected rows is wrong."
@@ -129,7 +129,7 @@ module.exports = {
         }
         catch(err){
             const message = '[products.db.service] Updating product with values { label: '
-                + label + ', description: ' + description + ', image_path: ' + image_path
+                + label + ', description: ' + description + ', image_path: ' + imagePath
                 + ', price: ' + price + ', quantity: ' + quantity + ' } went bad. Reason: ' + err;
 
             console.error(message);

@@ -1,12 +1,13 @@
 import {Button, Card, Col, Container, Row} from "react-bootstrap";
-import Footer from "../../components/footer/Footer";
-import MyNavBar from "../../components/mynavbar/MyNavBar";
-import LeftArrow from "../../resources/icons/LeftArrow";
+import Footer from "../../../components/footer/Footer";
+import MyNavBar from "../../../components/mynavbar/MyNavBar";
+import LeftArrow from "../../../resources/icons/LeftArrow";
 import Link from "next/link";
-import ImageGallery from "../../components/imageGallery/ImageGallery";
+import ImageGallery from "../../../components/imageGallery/ImageGallery";
 import {useRouter} from "next/router";
 import Image from "next/image";
 import {useState} from "react";
+import global from "../../../pagesPath";
 
 const ProductScreen = props => {
 
@@ -35,7 +36,7 @@ const ProductScreen = props => {
                     <MyNavBar />
                     <Container>
                         <Row className={"my-3 my-sm-4"}>
-                            <Link href={"/products"} className={"d-flex align-items-center text-decoration-none color-black"}>
+                            <Link href={global.PRODUCTS_PAGE_PATH} className={"d-flex align-items-center text-decoration-none color-black"}>
                                 <LeftArrow className={"d-flex"} fill={"black"} />
                                 <p className={"m-0 ms-2"}>Retour aux produits</p>
                             </Link>

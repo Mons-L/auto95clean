@@ -1,12 +1,12 @@
-import MyNavBar from "../../components/mynavbar/MyNavBar";
-import Footer from "../../components/footer/Footer";
+import MyNavBar from "../../../components/mynavbar/MyNavBar";
+import Footer from "../../../components/footer/Footer";
 import {Button, Card, Col, Container, Form, FormGroup, InputGroup, Row} from "react-bootstrap";
-import BagVplus from "../../resources/icons/BagVplus";
-import Search from "../../resources/icons/Search";
+import BagVplus from "../../../resources/icons/BagVplus";
+import Search from "../../../resources/icons/Search";
 import Link from "next/link";
 import {useEffect, useState} from "react";
-import ProductItem from "../../components/ProductItem";
-import apiHandler from "../../apiHandler";
+import ProductItem from "../../../components/ProductItem";
+import apiHandler from "../../../apiHandler";
 import {useRouter} from "next/navigation";
 
 const INITIAL_SORT = "preferred"
@@ -60,8 +60,6 @@ const Products = props => {
         return setFilters({...filters, categories: filters.categories.filter(v => v !== value)})
     }
 
-    const categories = ["cat1", "cat2", "categorie3"];
-
     const sortChoices = [
         {value: "preferred", label: "Préférés"},
         {value: "ascendingPrice", label: "Prix croissant"},
@@ -110,17 +108,17 @@ const Products = props => {
                             </Col>
                             {
                                 filters.categories &&
-                                categories.map(category => {
+                                props.categories.map(category => {
                                     return(
                                         <Form.Check
-                                            key={"checkbox-" + category}
+                                            key={"checkbox-" + category.id}
                                             type={"checkbox"}
-                                            id={category}
-                                            name={"selectedCategorie"}
-                                            value={category}
-                                            label={category}
-                                            checked={filters.categories.indexOf(category) !== -1}
-                                            onChange={() => handleSelectedCategories(category)}
+                                            id={category.id}
+                                            name={"selectedCategory"}
+                                            value={category.id}
+                                            label={category.label}
+                                            checked={filters.categories.indexOf(category.id) !== -1}
+                                            onChange={() => handleSelectedCategories(category.id)}
                                         />
                                     )
                                 })
@@ -159,14 +157,13 @@ const Products = props => {
 export default Products;
 
 export async function getStaticProps() {
-    return apiHandler
-        .fetchProducts()
-        .then(response => {
-            return {
-                props: {
-                    products: response.data.products
-                }
-            }
-        })
-        .catch(err => console.log(err));
+    const products = await apiHandler.fetchProducts().then(response => response.data.products).catch(err => console.log(err))
+    const productCategories = await apiHandler.fetchProductCategories().then(response => response.data.productCategories).catch(err => console.log(err))
+
+    return {
+        props: {
+            products: products,
+            categories: productCategories
+        }
+    }
 }

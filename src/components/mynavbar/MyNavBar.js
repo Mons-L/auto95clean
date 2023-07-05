@@ -1,13 +1,14 @@
 import {Container, Nav, Navbar} from "react-bootstrap";
 import Bag from '../../resources/icons/Bag';
+import global from '../../pagesPath'
 
 const links = [
-    {path: '/', name: 'Accueil'},
-    {path: '/services', name: 'Prestations'},
-    {path: '/products', name: 'Produits'},
-    {path: '/dashboard', name: 'Mon espace'}
+    {path: global.HOME_PAGE_PATH, name: 'Accueil'},
+    {path: global.SERVICES_PAGE_PATH, name: 'Prestations'},
+    {path: global.PRODUCTS_PAGE_PATH, name: 'Produits'},
+    {path: global.CLIENT_DASHBOARD_PAGE_PATH, name: 'Mon espace'}
 ];
-const cartLink = {path: '/cart', name: 'Panier'};
+const cartLink = {path: global.CART_PAGE_PATH, name: 'Panier'};
 const brand = "Auto95Clean";
 
 const MyNavBar = props => {

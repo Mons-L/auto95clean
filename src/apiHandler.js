@@ -18,6 +18,12 @@ export default {
             .catch(errorHandler)
     },
 
+    fetchProductCategories(){
+        return this.apiServer.get('/product-categories')
+            .then(response => response.data)
+            .catch(errorHandler)
+    },
+
     fetchProductsByFilters(filters){
         let params = []
         if(filters.categories && filters.categories.length > 0)
@@ -106,13 +112,20 @@ export default {
     },
 
     fetchCart(){
-        return this.apiServer.put("/cart")
+        return this.apiServer.get("/cart")
             .then(response => response.data)
             .catch(errorHandler)
     },
 
-    updateProduct(){
-        return this.apiServer.put("/product")
+    updateProduct({ id, label, description, imagePath, price, quantity, categoryId }){
+        return this.apiServer.post("/products/" + id, {
+            label,
+            description,
+            imagePath,
+            price,
+            quantity,
+            categoryId
+        })
             .then(response => response.data)
             .catch(errorHandler)
     }

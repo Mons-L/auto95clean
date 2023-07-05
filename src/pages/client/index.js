@@ -9,6 +9,7 @@ import calendar from "../../resources/images/icones/calendar.png"
 import location from "../../resources/images/icones/location.png"
 import contact from "../../resources/images/icones/contact.png"
 
+import global from '../../pagesPath'
 import Image from 'next/image'
 
 import {
@@ -22,6 +23,8 @@ import {
     useEffect,
     useRef
 } from "react";
+
+import Link from "next/link";
 
 export default function Home() {
     const myRef = useRef()
@@ -95,10 +98,14 @@ export default function Home() {
                 </Row>
                 <Row className={"mt-5 mb-5"}>
                     <Col>
-                        <Button variant="light">Choisis ta formule</Button>
+                        <Link href={global.SERVICES_PAGE_PATH}>
+                            <Button variant="dark">Choisis ta formule</Button>
+                        </Link>
                     </Col>
                     <Col>
-                        <Button variant="light">Composes ton lavage</Button>
+                        <Link href={global.SERVICES_PAGE_PATH}>
+                            <Button variant="dark">Composes ton lavage</Button>
+                        </Link>
                     </Col>
                 </Row>
                 <Row>

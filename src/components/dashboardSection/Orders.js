@@ -75,7 +75,7 @@ const Orders = props => {
                                                     </Col>
                                                     <Col className={"font-size-14"}>
                                                         <p className={"fw-semibold mb-0"}>Status</p>
-                                                        <p className={"mb-0"}>{order.status}</p>
+                                                        <p className={"mb-0"}>{order.state}</p>
                                                     </Col>
                                                 </AccordionHeader>
                                                 <AccordionBody>
