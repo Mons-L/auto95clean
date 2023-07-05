@@ -103,5 +103,18 @@ export default {
         })
             .then(response => response.data)
             .catch(errorHandler)
+    },
+
+    fetchCart(){
+        return this.apiServer.put("/cart")
+            .then(response => response.data)
+            .catch(errorHandler)
+    },
+
+    updateProduct(){
+        return this.apiServer.put("/product")
+            .then(response => response.data)
+            .catch(errorHandler)
     }
+
 }

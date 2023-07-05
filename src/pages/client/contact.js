@@ -1,7 +1,7 @@
-import MyNavBar from "../components/mynavbar/MyNavBar";
-import Footer from "../components/footer/Footer";
+import MyNavBar from "../../components/mynavbar/MyNavBar";
+import Footer from "../../components/footer/Footer";
 
-import apiHandler from "../apiHandler";
+import apiHandler from "../../apiHandler";
 
 import {
     Button,
@@ -15,7 +15,7 @@ import {
 import {
     useState
 } from "react";
-import {handleInput} from "../utils";
+import {handleInput} from "../../utils";
 
 const Contact = props => {
 

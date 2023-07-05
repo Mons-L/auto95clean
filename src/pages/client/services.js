@@ -1,11 +1,11 @@
-import apiHandler from "../apiHandler";
+import apiHandler from "../../apiHandler";
 
-import Footer from "../components/footer/Footer";
-import MyNavBar from "../components/mynavbar/MyNavBar";
-import VehicleType from "../components/serviceSteps/VehiclesTypes";
-import FormulaType from "../components/serviceSteps/FormulasTypes";
-import Formula from "../components/serviceSteps/Formulas";
-import PersonalInfosStep from "../components/serviceSteps/PersonalInfosStep";
+import Footer from "../../components/footer/Footer";
+import MyNavBar from "../../components/mynavbar/MyNavBar";
+import VehicleType from "../../components/serviceSteps/VehiclesTypes";
+import FormulaType from "../../components/serviceSteps/FormulasTypes";
+import Formula from "../../components/serviceSteps/Formulas";
+import PersonalInfosStep from "../../components/serviceSteps/PersonalInfosStep";
 
 import {
     useEffect,
@@ -16,8 +16,8 @@ import {
     Container,
     Row
 } from "react-bootstrap";
-import Tasks from "../components/serviceSteps/Tasks";
-import Slots from "../components/serviceSteps/Slots";
+import Tasks from "../../components/serviceSteps/Tasks";
+import Slots from "../../components/serviceSteps/Slots";
 const FORMULA_TYPE_READY_ID = 1
 const FORMULA_TYPE_CUSTOM_ID = 2
 

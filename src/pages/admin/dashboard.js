@@ -1,10 +1,13 @@
-import MyNavBar from "../components/mynavbar/MyNavBar";
-import Footer from "../components/footer/Footer";
+import MyNavBar from "../../components/mynavbar/MyNavBar";
+import Footer from "../../components/footer/Footer";
 
-import PersonalInformations from "../components/dashboardSection/PersonalInformations";
-import Orders from "../components/dashboardSection/Orders";
-import Preferences from "../components/dashboardSection/Preferences";
-import Reservations from "../components/dashboardSection/Reservations";
+import PersonalInformations from "../../components/dashboardSection/PersonalInformations";
+import Orders from "../../components/dashboardSection/Orders";
+import Preferences from "../../components/dashboardSection/Preferences";
+import Reservations from "../../components/dashboardSection/Reservations";
+
+import Products from "../../components/dashboardSection/admin/Products";
+import Services from "../../components/dashboardSection/admin/Services";
 
 import {
     Col,
@@ -12,10 +15,14 @@ import {
     Row
 } from "react-bootstrap";
 
-import {useState} from "react";
+import {
+    useState
+} from "react";
 
 const PERSONAL_INFORMATIONS_TAB_KEY = "PersonalInformations"
+const SERVICE_TAB_KEY = "Services"
 const RESERVATIONS_TAB_KEY = "Reservations"
+const PRODUCTS_TAB_KEY = "Products"
 const ORDERS_TAB_KEY = "Orders"
 const PREFERENCES_TAB_KEY = "Preferences"
 
@@ -27,7 +34,9 @@ const Dashboard = props => {
         return (
             <>
                 { selectedTab === PERSONAL_INFORMATIONS_TAB_KEY && <PersonalInformations /> }
+                { selectedTab === SERVICE_TAB_KEY && <Services /> }
                 { selectedTab === RESERVATIONS_TAB_KEY && <Reservations /> }
+                { selectedTab === PRODUCTS_TAB_KEY && <Products /> }
                 { selectedTab === ORDERS_TAB_KEY && <Orders /> }
                 { selectedTab === PREFERENCES_TAB_KEY && <Preferences /> }
             </>
@@ -40,7 +49,7 @@ const Dashboard = props => {
             <Container>
                 <Row className={'my-5'}>
                     <Col>
-                        <h2>Bienvenue sur votre espace Salma BENCHELKHA</h2>
+                        <h2>Bienvenue sur votre espace</h2>
                     </Col>
                 </Row>
                 <Row>
@@ -52,6 +61,14 @@ const Dashboard = props => {
                         >
                             <p>Informations personnelles</p>
                         </Row>
+
+                        <Row
+                            type={"button"}
+                            className={"mb-3"}
+                            onClick={() => setSelectedTab(SERVICE_TAB_KEY)}
+                        >
+                            <p>Prestations</p>
+                        </Row>
                         <Row
                             type={"button"}
                             className={"mb-3"}
@@ -62,10 +79,18 @@ const Dashboard = props => {
                         <Row
                             type={"button"}
                             className={"mb-3"}
+                            onClick={() => setSelectedTab(PRODUCTS_TAB_KEY)}
+                        >
+                            <p>Produits</p>
+                        </Row>
+                        <Row
+                            type={"button"}
+                            className={"mb-3"}
                             onClick={() => setSelectedTab(ORDERS_TAB_KEY)}
                         >
                             <p>Commandes</p>
                         </Row>
+
                         <Row
                             type={"button"}
                             className={"mb-3"}

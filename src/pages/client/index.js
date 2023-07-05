@@ -1,13 +1,13 @@
 import Head from 'next/head'
-import MyNavBar from "../components/mynavbar/MyNavBar";
-import Footer from "../components/footer/Footer";
+import MyNavBar from "../../components/mynavbar/MyNavBar";
+import Footer from "../../components/footer/Footer";
 
-import imageLavage1 from "../resources/images/lavage_1.png"
-import imageLavage2 from "../resources/images/lavage_2.png"
-import imageLavage3 from "../resources/images/lavage_3.png"
-import calendar from "../resources/images/icones/calendar.png"
-import location from "../resources/images/icones/location.png"
-import contact from "../resources/images/icones/contact.png"
+import imageLavage1 from "../../resources/images/lavage_1.png"
+import imageLavage2 from "../../resources/images/lavage_2.png"
+import imageLavage3 from "../../resources/images/lavage_3.png"
+import calendar from "../../resources/images/icones/calendar.png"
+import location from "../../resources/images/icones/location.png"
+import contact from "../../resources/images/icones/contact.png"
 
 import Image from 'next/image'
 

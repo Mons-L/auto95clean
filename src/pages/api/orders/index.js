@@ -1,35 +1,47 @@
-const formulasTypesDB = require('../../../database/formulasTypes.db.service');
+const ordersDB = require('../../../database/orders.db.service');
 
-export default async function handler(req, res){
-    const method = req.method;
+import {createRouter} from "next-connect";
 
-    switch(method){
-        case 'GET': return handleGet(req, res);
-        default:
-            res.setHeader('Allow', ['GET', 'PUT']);
-            res.status(405).json({
-                data: null,
-                error: { message: 'Method ' + method + ' not allowed' }
+const INITIAL_ORDER_STATE = "CART"
+const router = createRouter()
+
+router
+    .put(async (req, res) => {
+        const {deliveryType, deliveryCharges, paymentMode, userId, product} = req.body;
+        const state= req.body.state || INITIAL_ORDER_STATE
+
+        try{
+            const result = await ordersDB.insertOrder(deliveryType, deliveryCharges, paymentMode, state, userId);
+
+            if(!result){
+                const message = "[orders] Inserting order failed. Something went wrong inserting an order in database";
+                console.error(message);
+                return res.status(424).json({
+                    data: null,
+                    error: { message: message }
+                });
+            }
+            if(product !== null && product !== undefined && product.id !== null && product.id !== undefined)
+                return res.redirect
+
+            return res.status(201).json({
+                data: { message: "Inserting order succeed", insertedId: result },
+                error: null
             });
-    }
-}
+        }
+        catch(err){
+            const message = "[orders] " + err
+            console.error(message);
+            return res.status(500).json({
+                data: null,
+                error: { message: message }
+            });
+        }
+    })
 
-
-const handleGet = async (req, res) => {
-    const userId = 1
-    try {
-        const formulasTypes = await formulasTypesDB.getFormulasTypes();
-        return res.status(200).json({
-            data: { formulasTypes: formulasTypes },
-            error: null
-        });
-    }
-    catch(err){
-        const message = '[formulasTypes] ' + err;
-        console.error(message);
-        res.status(500).json({
-            data: null,
-            error: { message: message }
-        });
-    }
-}
+export default router.handler({
+    onError: (err, req, res) => {
+        console.error(err.stack);
+        res.status(err.statusCode || 500).end(err.message);
+    },
+});
