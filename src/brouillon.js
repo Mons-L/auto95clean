@@ -30,3 +30,13 @@ import imageLavage3 from "./resources/images/lavage_3.png";
     style={{width: '100%', height: "auto", position: "relative", backgroundImage: "linear-gradient(to bottom, transparent, #837960)"}}
     className={'d-none d-md-block hide-image-transition abc'}
 />
+
+    .use((req, res, next) => {
+        // handlers after this (PUT, DELETE) all require an authenticated user
+        // This middleware to check if user is authenticated before continuing
+        if (!req.user) {
+            res.status(401).send('unauthenticated')
+        } else {
+            next()
+        }
+    })
