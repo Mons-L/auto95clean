@@ -1,3 +1,4 @@
+
 module.exports = {
     respectOpeningHours(startTime, endTime, openingTime, closingTime){
         return startTime >= openingTime

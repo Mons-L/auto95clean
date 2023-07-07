@@ -2,6 +2,7 @@ import MyNavBar from "../components/mynavbar/MyNavBar";
 import Footer from "../components/footer/Footer";
 import LoginForm from "../components/authentication/LoginForm";
 import RegisterForm from "../components/authentication/RegisterForm";
+import global from "../pagesPath";
 
 import {
     Container,
@@ -9,61 +10,98 @@ import {
 } from "react-bootstrap";
 
 import {
+    useEffect,
     useState
 } from "react";
+import apiHandler from "../apiHandler";
+import {handleInput} from "../utils";
+import {redirect} from "next/navigation";
+import Router, {useRouter} from 'next/router'
+import protectedPage from "../lib/protectedPageRoute";
+import UserProtectedRoute from "../components/protectedRoutes/UserProtectedRoute";
+import AuthProtectedRoute from "../components/protectedRoutes/AuthProtectedRoute";
 
 const LOGIN_FORM_TAB_KEY = "LoginForm"
 const REGISTER_FORM_TAB_KEY = "RegisterForm"
+/*
+export async function getServerSideProps(context) {
+    console.log(context.req)
+    return await protectedPage.protectAuthenticationRoute(context)
+}*/
 
 const Authentication = props => {
-
+    const router = useRouter()
     const [selectedTab, setSelectedTab] = useState(LOGIN_FORM_TAB_KEY)
-
+    const [waiting, setWaiting] = useState(false)
     const [loginCredentials, setLoginCredentials] = useState({
         email: "",
         password: ""
     })
-
     const [registerInformations, setRegisterInformations] = useState({
         firstname: "",
         lastname: "",
         email: "",
         password: "",
-        confirmedPassword: ""
+        confirmPassword: ""
     })
 
     const handleLoginSubmit = (event) => {
         event.preventDefault()
-        console.log("submitted for login")
+        setWaiting(true)
+        apiHandler
+            .login(loginCredentials)
+            .then(response => {
+                return router.push(global.CLIENT_DASHBOARD_PAGE_PATH)
+            })
+            .catch(err => {
+                console.log(err)
+                setWaiting(false)
+            })
     }
 
     const handleRegisterSubmit = (event) => {
         event.preventDefault()
-        console.log("submitted for register")
+        setWaiting(true)
+        apiHandler
+            .register(registerInformations)
+            .then(response => {
+                return {
+                    redirect: {
+                        destination: '/client/dashboard',
+                        permanent: false
+                    }
+                }
+            })
+            .catch(err => {
+                console.log(err)
+                setWaiting(false)
+            })
     }
 
     return(
-        <>
-            <MyNavBar activepath={'/authentication'}/>
+        <AuthProtectedRoute>
+            <MyNavBar activepath={'./authentication'}/>
             <Container>
                 <Row className={'my-5'}>
                     { selectedTab === LOGIN_FORM_TAB_KEY &&
                         <LoginForm
-                            handleSubmit={handleLoginSubmit}
+                            onSubmit={handleLoginSubmit}
                             loginCredentials={loginCredentials}
+                            handleOnChangeInput={(e, inputName) => handleInput(e.target.value, setLoginCredentials, false, inputName, loginCredentials)}
                             setSelectedTab={() => setSelectedTab(REGISTER_FORM_TAB_KEY)}
                         />
                     }
                     { selectedTab === REGISTER_FORM_TAB_KEY &&
                         <RegisterForm
-                            handleSubmit={handleRegisterSubmit}
+                            onSubmit={handleRegisterSubmit}
                             registerInformations={registerInformations}
+                            handleOnChangeInput={(e, inputName) => handleInput(e.target.value, setRegisterInformations, false, inputName, registerInformations)}
                         />
                     }
                 </Row>
             </Container>
             <Footer />
-        </>
+        </AuthProtectedRoute>
     )
 }
 

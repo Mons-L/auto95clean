@@ -18,6 +18,7 @@ import {
 import {
     useState
 } from "react";
+import AdminProtectedRoute from "../../components/protectedRoutes/AdminProtectedRoute";
 
 const PERSONAL_INFORMATIONS_TAB_KEY = "PersonalInformations"
 const SERVICE_TAB_KEY = "Services"
@@ -28,6 +29,7 @@ const PREFERENCES_TAB_KEY = "Preferences"
 
 const Dashboard = props => {
 
+    const [user, setUser] = useState(null)
     const [selectedTab, setSelectedTab] = useState(PERSONAL_INFORMATIONS_TAB_KEY)
 
     const renderSections = () => {
@@ -44,7 +46,7 @@ const Dashboard = props => {
     }
 
     return(
-        <>
+        <AdminProtectedRoute user={user} setUser={setUser}>
             <MyNavBar activepath={'/dashboard'} />
             <Container>
                 <Row className={'my-5'}>
@@ -118,7 +120,7 @@ const Dashboard = props => {
                 </Row>
             </Container>
             <Footer />
-        </>
+        </AdminProtectedRoute>
     )
 }
 

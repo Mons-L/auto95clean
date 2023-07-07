@@ -15,14 +15,21 @@ import {
 import {
     useState
 } from "react";
+import protectedPage from "../../lib/protectedPageRoute";
+import UserProtectedRoute from "../../components/protectedRoutes/UserProtectedRoute";
 
 const PERSONAL_INFORMATIONS_TAB_KEY = "PersonalInformations"
 const RESERVATIONS_TAB_KEY = "Reservations"
 const ORDERS_TAB_KEY = "Orders"
 const PREFERENCES_TAB_KEY = "Preferences"
+/*
+export async function getServerSideProps(context) {
+    return await protectedPage.protectUserRoute(context)
+}*/
 
 const Dashboard = props => {
 
+    const [user, setUser] = useState(null)
     const [selectedTab, setSelectedTab] = useState(PERSONAL_INFORMATIONS_TAB_KEY)
 
     const renderSections = () => {
@@ -37,7 +44,7 @@ const Dashboard = props => {
     }
 
     return(
-        <>
+        <UserProtectedRoute user={user} setUser={setUser}>
             <MyNavBar activepath={'/dashboard'} />
             <Container>
                 <Row className={'my-5'}>
@@ -88,7 +95,7 @@ const Dashboard = props => {
                 </Row>
             </Container>
             <Footer />
-        </>
+        </UserProtectedRoute>
     )
 }
 

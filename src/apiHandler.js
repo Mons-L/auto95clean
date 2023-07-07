@@ -128,6 +128,28 @@ export default {
         })
             .then(response => response.data)
             .catch(errorHandler)
+    },
+
+    login({email, password}){
+        return this.apiServer.post('/auth/login', {
+            email,
+            password
+        })
+    },
+
+    register({firstname, lastname, email, password, confirmPassword, phone}){
+        return this.apiServer.put('/auth/register', {
+            firstname,
+            lastname,
+            email,
+            password,
+            confirmPassword,
+            phone
+        })
+    },
+
+    loggedIn(){
+        return this.apiServer.get('/auth/logged-in')
     }
 
 }

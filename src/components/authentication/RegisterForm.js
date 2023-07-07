@@ -5,16 +5,13 @@ import {
     Row
 } from "react-bootstrap";
 
-import {
-    handleInput
-} from "../../utils";
-
 const RegisterForm = (props) => {
     return(
         <>
             <h2>Inscription</h2>
             <Form
                 className={"mt-3"}
+                onSubmit={props.onSubmit}
             >
                 <Row>
                     <Col>
@@ -25,13 +22,7 @@ const RegisterForm = (props) => {
                                 name={"firstname"}
                                 value={props.registerInformations.firstname}
                                 placeholder="Prénom"
-                                onChange={(e) => handleInput(
-                                    e.target.value,
-                                    props.setRegisterInformations,
-                                    false,
-                                    "firstname",
-                                    registerInformations
-                                )}
+                                onChange={(e) => props.handleOnChangeInput(e, 'firstname')}
                             />
                         </Form.Group>
                     </Col>
@@ -43,13 +34,7 @@ const RegisterForm = (props) => {
                                 name={"lastname"}
                                 value={props.registerInformations.lastname}
                                 placeholder="Nom"
-                                onChange={(e) => handleInput(
-                                    e.target.value,
-                                    props.setRegisterInformations,
-                                    false,
-                                    "lastname",
-                                    registerInformations
-                                )}
+                                onChange={(e) => props.handleOnChangeInput(e, 'lastname')}
                             />
                         </Form.Group>
                     </Col>
@@ -61,45 +46,27 @@ const RegisterForm = (props) => {
                         name={"email"}
                         value={props.registerInformations.email}
                         placeholder="nom@example.com"
-                        onChange={ (e) => handleInput(
-                            e.target.value,
-                            props.setRegisterInformations,
-                            false,
-                            "email",
-                            props.registerInformations
-                        )}
+                        onChange={(e) => props.handleOnChangeInput(e, 'email')}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label>Mot de passe</Form.Label>
                     <Form.Control
-                        type="text"
+                        type="password"
                         name={"password"}
                         value={props.registerInformations.password}
                         placeholder="Mot de passe"
-                        onChange={(e) => handleInput(
-                            e.target.value,
-                            props.setRegisterInformations,
-                            false,
-                            "password",
-                            props.registerInformations
-                        )}
+                        onChange={(e) => props.handleOnChangeInput(e, 'password')}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label>Confirmer le mot de passe</Form.Label>
                     <Form.Control
                         type="password"
-                        name={"confirmedPassword"}
+                        name={"confirmPassword"}
                         value={props.registerInformations.confirmedPassword}
                         placeholder="Confirmer le mot de passe"
-                        onChange={(e) => handleInput(
-                            e.target.value,
-                            props.setRegisterInformations,
-                            false,
-                            "confirmedPassword",
-                            props.registerInformations
-                        )}
+                        onChange={(e) => props.handleOnChangeInput(e, 'confirmPassword')}
                     />
                 </Form.Group>
                 <Button

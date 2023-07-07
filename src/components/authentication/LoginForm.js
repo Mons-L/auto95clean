@@ -3,9 +3,7 @@ import {
     Form,
 } from "react-bootstrap";
 
-import {
-    handleInput
-} from "../../utils";
+import global from '../../pagesPath'
 
 const LoginForm = (props) => {
     return(
@@ -13,6 +11,7 @@ const LoginForm = (props) => {
             <h2>Connectez-vous</h2>
             <Form
                 className={"mt-3"}
+                onSubmit={props.onSubmit}
             >
                 <Form.Group className="mb-3">
                     <Form.Label>Adresse e-mail</Form.Label>
@@ -21,38 +20,24 @@ const LoginForm = (props) => {
                         name={"email"}
                         value={props.loginCredentials.email}
                         placeholder="nom@example.com"
-                        onChange={(e) => handleInput(
-                            e.target.value,
-                            props.setLoginCredentials,
-                            false,
-                            "email",
-                            props.loginCredentials)
-                        }
+                        onChange={(e) => props.handleOnChangeInput(e, 'email')}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label>Mot de passe</Form.Label>
                     <Form.Control
-                        type="text"
+                        type="password"
                         name={"Mot de passe"}
                         value={props.loginCredentials.password}
                         placeholder="Mot de passe"
-                        onChange={(e) => handleInput(
-                            e.target.value,
-                            props.setLoginCredentials,
-                            false,
-                            "subject",
-                            props.loginCredentials)
-                        }
+                        onChange={(e) => props.handleOnChangeInput(e, 'password')}
                     />
                 </Form.Group>
-                <a href={"./"}><p>Mot de passe oublié</p></a>
-                <p>Vous n'avez pas de compte ? <a
-                        href={"./"}
-                        onClick={ props.setSelectedTab }
-                    >
+                <a href={'./'}><p>Mot de passe oublié</p></a>
+                <p>Vous n'avez pas de compte ?
+                    <Button onClick={ props.setSelectedTab }>
                         Créez-en un
-                    </a>
+                    </Button>
                 </p>
                 <Button
                     type={"submit"}
