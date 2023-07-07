@@ -9,17 +9,29 @@ router
     .post(expressWrapper(async (req, res, next) => {
         passport.authenticate('local', (err, user, failureDetails) => {
             if (err)
-                return res.status(500).json({message: "Something went wrong authenticating user"});
+                return res.status(500).json({
+                    data: null,
+                    error: "Something went wrong authenticating user"
+                })
 
             if (!user)
-                return res.status(401).json(failureDetails);
+                return res.status(401).json({
+                    data: null,
+                    error: failureDetails
+                });
 
             // Save user in session
             req.login(user, err => {
                 if (err)
-                    return res.status(500).json({message: "Session save went bad"});
+                    return res.status(500).json({
+                        data: null,
+                        error: "Session save went bad"
+                    })
 
-                res.status(200).json(user.id);
+                res.status(200).json({
+                    data: { userId: user.id },
+                    error: null
+                });
             })
         })(req, res, next)
     }))

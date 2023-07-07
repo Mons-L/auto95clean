@@ -13,7 +13,7 @@ const UserProtectedRoute = ({ children, ...pageProps }) => {
         apiHandler
             .loggedIn()
             .then(response => {
-                setUser(response.data)
+                setUser(response.data.user)
                 setLoading(false)
             })
             .catch(err => {

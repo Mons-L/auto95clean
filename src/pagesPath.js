@@ -2,7 +2,7 @@ const HOME_PAGE_PATH = "/client/"
 const SERVICES_PAGE_PATH = "/client/services/"
 const PRODUCTS_PAGE_PATH = "/client/products/"
 const CLIENT_DASHBOARD_PAGE_PATH = "/client/dashboard/"
-const ADMIN_DASHBOARD_PAGE_PATH = "/admin/services/"
+const ADMIN_DASHBOARD_PAGE_PATH = "/admin/dashboard/"
 const CART_PAGE_PATH = "/client/cart"
 const AUTHENTICATION_PAGE_PATH = '/authentication'
 

@@ -12,7 +12,7 @@ const UserProtectedRoute = ({ children, ...pageProps }) => {
         apiHandler
             .loggedIn()
             .then(response => {
-                pageProps.setUser(response.data)
+                pageProps.setUser(response.data.user)
                 setLoading(false)
             })
             .catch(err => setLoading(false))

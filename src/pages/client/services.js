@@ -13,13 +13,16 @@ import {
 } from "react";
 
 import {
-    Container,
+    Button,
+    Container, Form,
     Row
 } from "react-bootstrap";
 import Tasks from "../../components/serviceSteps/Tasks";
 import Slots from "../../components/serviceSteps/Slots";
 const FORMULA_TYPE_READY_ID = 1
 const FORMULA_TYPE_CUSTOM_ID = 2
+const ON_SITE_PAYMENT_MODE = "on-site"
+const CB_PAYMENT_MODE = "CB"
 
 const Services = props => {
 
@@ -30,8 +33,14 @@ const Services = props => {
     const [availableTasks, setAvailableTasks] = useState(null)
     const [selectedTasks, setSelectedTasks] = useState([])
     const [availableSlots, setAvailableSlots] = useState(null)
-    const [selectedSlot, setSelectedSlot] = useState(null)
-    const [personalInfos, setPersonalInfos] = useState(null)
+    const [selectedSlot, setSelectedSlot] = useState({start: "2023-07-15:09:35:00", end: "2023-07-15:09:36:00"})
+    const [personalInfos, setPersonalInfos] = useState({
+        email: "a@tst.fr",
+        phone: "0753597670",
+        immatriculation: "BJ-326-ER"
+    })
+    const [paymentMode, setPaymentMode] = useState(null)
+    const [waiting, setWaiting] = useState(false)
 
     useEffect(() => {
         if(selectedVehicleType)
@@ -51,6 +60,22 @@ const Services = props => {
             setSelectedFormula(null)
         }
     }, [selectedFormulaType])
+
+    const handleBook = () => {
+        apiHandler.registerReservation({
+            startDate: selectedSlot.start,
+            endDate: selectedSlot.end,
+            email: personalInfos.email,
+            phone: personalInfos.phone,
+            immatriculation: personalInfos.immatriculation,
+            paymentMode: paymentMode,
+            formulaType: selectedFormulaType.id,
+            formulaId: selectedFormula.id,
+            vehicleTypeId: selectedVehicleType.id,
+            tasks: selectedTasks
+        }).then(response => console.log("reservation réussi voici l'id: ", response.data.insertedId))
+            .catch(err => console.log(err))
+    }
 
     const renderError = () => {
         return(
@@ -118,15 +143,42 @@ const Services = props => {
                     />
                 }
                 {
-                    (
-                        (selectedFormula && selectedFormulaType.id === FORMULA_TYPE_READY_ID)
-                        || (selectedTasks && selectedTasks.length>0 && selectedFormulaType && selectedFormulaType.id === FORMULA_TYPE_CUSTOM_ID )
-                    )
-                    &&
-                    <PersonalInfosStep
-                        key={"step-reservationInfos"}
-                        saveChoice={setPersonalInfos}
-                    />
+                    selectedSlot &&
+                        <>
+                            <PersonalInfosStep
+                                key={"step-reservationInfos"}
+                                saveChoice={setPersonalInfos}
+                            />
+                            <div className="mb-3">
+                                <Form.Check
+                                    inline
+                                    label="Payer maintenant"
+                                    name="paymentMode"
+                                    type={"radio"}
+                                    id={`inline-radio-CB`}
+                                    checked={paymentMode === CB_PAYMENT_MODE}
+                                    onChange={() => setPaymentMode(CB_PAYMENT_MODE)}
+                                />
+                                <Form.Check
+                                    inline
+                                    label="Payer sur place"
+                                    name="paymentMode"
+                                    type={"radio"}
+                                    id={`inline-radio-on-site`}
+                                    checked={paymentMode === ON_SITE_PAYMENT_MODE}
+                                    onChange={() => setPaymentMode(ON_SITE_PAYMENT_MODE)}
+                                />
+                            </div>
+                        </>
+                }
+                {
+                    paymentMode === ON_SITE_PAYMENT_MODE?
+                        <Button onClick={handleBook}>Reserver maintenant</Button>
+                    :
+                        <Row>
+                            info de paiement
+                            <Button>Payer et reserver</Button>
+                        </Row>
                 }
             </>
         )

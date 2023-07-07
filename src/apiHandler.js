@@ -135,6 +135,8 @@ export default {
             email,
             password
         })
+            .then(response => response.data)
+            .catch(errorHandler)
     },
 
     register({firstname, lastname, email, password, confirmPassword, phone}){
@@ -146,10 +148,33 @@ export default {
             confirmPassword,
             phone
         })
+            .then(response => response.data)
+            .catch(errorHandler)
     },
 
     loggedIn(){
-        return this.apiServer.get('/auth/logged-in')
+        return this.apiServer
+            .get('/auth/logged-in')
+            .then(response => response.data)
+            .catch(errorHandler)
+    },
+
+    registerReservation({startDate, endDate, email, phone, immatriculation,
+                            paymentMode, formulaType, formulaId, vehicleTypeId, tasks}){
+        return this.apiServer.put('/reservations', {
+            startDate,
+            endDate,
+            email,
+            phone,
+            immatriculation,
+            paymentMode,
+            formulaType,
+            formulaId,
+            vehicleTypeId,
+            tasks
+        })
+            .then(response => response.data)
+            .catch(errorHandler)
     }
 
 }
