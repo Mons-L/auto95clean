@@ -1,10 +1,13 @@
+import auth from "../../../middlewares/auth";
+
 const tasksDB = require('../../../database/tasks.db.service');
 import {createRouter, expressWrapper} from "next-connect";
 
 const router = createRouter()
 
 router
-    .get(async (req, res) => {
+    .use(auth)
+    .get( async (req, res) => {
     try{
         const tasks = await tasksDB.getTasks();
         return res.status(200).json({

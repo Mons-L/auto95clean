@@ -18,6 +18,12 @@ export default {
             .catch(errorHandler)
     },
 
+    fetchProduct(id){
+        return this.apiServer.get('/products/' + id)
+            .then(response => response.data)
+            .catch(errorHandler)
+    },
+
     fetchProductCategories(){
         return this.apiServer.get('/product-categories')
             .then(response => response.data)

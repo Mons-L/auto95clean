@@ -1,4 +1,4 @@
-import {check, initValidation} from "../../middleware/handler";
+import {check, initValidation} from "../middleware/handler";
 
 const postValidator = initValidation(
     [

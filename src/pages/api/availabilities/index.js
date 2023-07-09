@@ -6,7 +6,7 @@ export default async function handler(req, res){
     const method = req.method;
 
     switch(method){
-        case 'GET': return handleGet(req, res);
+        case 'POST': return handlePost(req, res);
         default:
             res.setHeader('Allow', ['GET', 'PUT']);
             res.status(405).json({
@@ -16,14 +16,14 @@ export default async function handler(req, res){
     }
 }
 
-const handleGet = async (req, res) => {
-    const {fromDate, dayNumber, slotDuration} = req.query
+const handlePost = async (req, res) => {
+    const {fromDate, dayNumber, slotDuration} = req.body
     try{
         const calendarAvailabilities = await availabilitiesDB.getCalendarAvailabilitiesByInterval(fromDate, dayNumber);
 
-        const reservations = await reservationsDB.getResevationsBetweenDates(fromDate, addDays(new Date(fromDate), 6))
+        const reservations = await reservationsDB.getResevationsBetweenDates(fromDate, addDays(new Date(fromDate), dayNumber))
 
-        function getAvailableSlots(reservations, calendarAvailabilities) {
+        function getAvailableSlots(reservations, calendarAvailabilities, slotDuration) {
             let test = []
 
             test = calendarAvailabilities.map(availability => {
@@ -36,8 +36,8 @@ const handleGet = async (req, res) => {
                 const eveningEndTime = new Date(`${availability.date}T${availability.evening_end_time}`);
 
                 // Vérifier les créneaux matin et soir
-                checkAvailabilitySlot(morningStartTime, morningEndTime, 120, availableSlots);
-                checkAvailabilitySlot(eveningStartTime, eveningEndTime, 120, availableSlots);
+                checkAvailabilitySlot(morningStartTime, morningEndTime, slotDuration, availableSlots);
+                checkAvailabilitySlot(eveningStartTime, eveningEndTime, slotDuration, availableSlots);
                 return {date: availabilityDate, availableSlots: availableSlots}
 
             })
@@ -77,7 +77,7 @@ const handleGet = async (req, res) => {
             }
         }
 
-        const availableSlots = getAvailableSlots(reservations, calendarAvailabilities);
+        const availableSlots = getAvailableSlots(reservations, calendarAvailabilities, slotDuration);
 
         return res.status(200).json({
             data: {calendarAvailabilities: availableSlots},

@@ -97,41 +97,41 @@ export default function Home() {
                     </Col>
                 </Row>
                 <Row className={"mt-5 mb-5"}>
-                    <Col>
+                    <Col className={"text-center"}>
                         <Link href={global.SERVICES_PAGE_PATH}>
                             <Button variant="dark">Choisis ta formule</Button>
                         </Link>
                     </Col>
-                    <Col>
+                    <Col className={"text-center"}>
                         <Link href={global.SERVICES_PAGE_PATH}>
                             <Button variant="dark">Composes ton lavage</Button>
                         </Link>
                     </Col>
                 </Row>
                 <Row>
-                    <div className={"poslative"} ref={myRef}>
+                    <Col className={"text-center"} ref={myRef}>
                         <Image
                             src={imageLavage1}
-                            width={300}
-                            height={400}
+                            width={400}
+                            height={535}
                             style={{ zIndex: "3"}}
                             alt={"Photo d'une personne nettoyant une voiture"}
                         />
                         <Image
                             src={imageLavage2}
-                            width={500}
-                            height={300}
-                            style={{marginLeft: "-50px", zIndex: "2"}}
+                            width={450}
+                            height={250}
+                            style={{marginLeft: "-50px", marginTop:"-250px", zIndex: "2"}}
                             alt={"Photo d'une personne nettoyant une voiture"}
                         />
                         <Image
                             src={imageLavage3}
-                            width={500}
-                            height={200}
-                            style={{marginTop: "-50px", zIndex: "3"}}
+                            width={525}
+                            height={250}
+                            style={{marginTop: "-350px", marginLeft: "400px", zIndex: "3"}}
                             alt={"Photo d'une personne nettoyant une voiture"}
                         />
-                    </div>
+                    </Col>
                 </Row>
             </Container>
             <Footer />

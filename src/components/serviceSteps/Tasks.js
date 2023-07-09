@@ -1,4 +1,4 @@
-import {Row} from "react-bootstrap";
+import {Col, Form, FormControl, Row} from "react-bootstrap";
 
 const Tasks = (props) => {
     return(
@@ -8,18 +8,26 @@ const Tasks = (props) => {
                 {
                     props.availableTasks.map(task => {
                         return(
-                            <Row
-                                key={"task-"+task.id}
-                                xl={12}
-                                className={"border rounded-3 border-3 d-flex text-center"}
-                            >
-                                <label>{task.label + task.price} </label>
-                                <input
-                                    type="checkbox"
-                                    id={"task-"+task.id}
-                                    onClick={() => props.saveChoice([...props.selectedTasks, task.id])}
-                                />
-                            </Row>
+                            <>
+                                <Col md={5} className={"d-flex px-2 border-bottom me-5 my-2"}>
+                                    <Form.Check
+                                        key={"task-"+task.id}
+                                        type="checkbox"
+                                        id={"task-"+task.id}
+                                        checked={props.selectedTasks.indexOf(task.id) !== -1}
+                                        label={task.label}
+                                        onChange={(e) => {
+                                            if(props.selectedTasks.indexOf(task.id) !== -1)
+                                                props.saveChoice(props.selectedTasks.filter(item => item !== task.id))
+                                            else
+                                                props.saveChoice([...props.selectedTasks, task.id])
+                                        }}
+                                    />
+                                    <p className={"ms-auto"}>{task.price.toLocaleString()} €</p>
+                                </Col>
+                            </>
+
+
                         )
                     })
                 }

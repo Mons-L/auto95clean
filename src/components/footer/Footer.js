@@ -1,23 +1,22 @@
 import {Col, Container, Row} from "react-bootstrap";
 import Link from "next/link";
-
-const CONTACT_LINK_KEY = "/contact"
+import pagesPath from "../../pagesPath"
 
 const Footer = props =>{
     return(
-        <Row className={'footer align-items-end position-sticky mb-0'}>
+        <Row className={'footer align-items-end mt-auto'}>
             <Row>
                 <Col className={'d-flex justify-content-center'}>
                     <div>
                         <p>Contact</p>
-                        <Link href={ CONTACT_LINK_KEY }>Nous contacter </Link>
+                        <Link className={"text-decoration-none text-white"} href={ pagesPath.CONTACT_PAGE_PATH }><p>Nous contacter</p></Link>
                         <p>07 65 62 16 98</p>
                     </div>
                 </Col>
 
                 <Col className={'d-flex justify-content-center'}>
                     <div>
-                        <p>Itinéraire</p>
+                        <p>Adresse</p>
                         <p>88 Rue Michel Carré</p>
                         <p>95100 Argenteuil</p>
                     </div>
@@ -26,8 +25,8 @@ const Footer = props =>{
                 <Col className={'d-flex justify-content-center'}>
                     <div>
                         <p>Réseaux sociaux</p>
-                        <p>INSTA</p>
-                        <p>SNAP</p>
+                        <p>Instagram</p>
+                        <p>Snapchat</p>
                     </div>
                 </Col>
             </Row>

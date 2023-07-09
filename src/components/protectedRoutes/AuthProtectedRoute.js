@@ -2,6 +2,8 @@ import {useRouter} from "next/router";
 import global from "../../pagesPath"
 import {useEffect, useState} from "react";
 import apiHandler from "../../apiHandler";
+import Loader from "../Loader";
+import {Row} from "react-bootstrap";
 const ADMIN_ROLE = "ADMIN"
 
 const UserProtectedRoute = ({ children, ...pageProps }) => {
@@ -30,8 +32,11 @@ const UserProtectedRoute = ({ children, ...pageProps }) => {
         <>
             {
                 loading || user?
-                    <div>Loading</div>
-                    :
+                    <Row className={"justify-content-center my-auto text-center"}>
+                        <p>Veuillez patienter pendant que nous verifions votre identité.</p>
+                        <Loader />
+                    </Row>
+                :
                     children
             }
         </>

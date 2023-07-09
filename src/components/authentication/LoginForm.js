@@ -35,7 +35,7 @@ const LoginForm = (props) => {
                 </Form.Group>
                 <a href={'./'}><p>Mot de passe oublié</p></a>
                 <p>Vous n'avez pas de compte ?
-                    <Button onClick={ props.setSelectedTab }>
+                    <Button variant={"link"} onClick={ props.setSelectedTab }>
                         Créez-en un
                     </Button>
                 </p>

@@ -21,6 +21,11 @@ import apiHandler from "../../apiHandler";
 import pagesPath from "../../../src/pagesPath"
 
 import {useRouter} from "next/router";
+import PersonCard from "../../resources/icons/PersonCard";
+import CalendarCheck from "../../resources/icons/CalendarCheck";
+import CardCheckList from "../../resources/icons/CardCheckList";
+import Sliders from "../../resources/icons/Sliders";
+import Logout from "../../resources/icons/Logout";
 
 const PERSONAL_INFORMATIONS_TAB_KEY = "PersonalInformations"
 const RESERVATIONS_TAB_KEY = "Reservations"
@@ -45,7 +50,7 @@ const Dashboard = props => {
     const renderSections = () => {
         return (
             <>
-                { selectedTab === PERSONAL_INFORMATIONS_TAB_KEY && <PersonalInformations /> }
+                { selectedTab === PERSONAL_INFORMATIONS_TAB_KEY && <PersonalInformations user={user} /> }
                 { selectedTab === RESERVATIONS_TAB_KEY && <Reservations /> }
                 { selectedTab === ORDERS_TAB_KEY && <Orders /> }
                 { selectedTab === PREFERENCES_TAB_KEY && <Preferences /> }
@@ -66,38 +71,52 @@ const Dashboard = props => {
                     <Col md={3}>
                         <Row
                             type={"button"}
-                            className={"mb-3"}
+                            className={"mb-4"}
                             onClick={() => setSelectedTab(PERSONAL_INFORMATIONS_TAB_KEY)}
                         >
-                            <p>Informations personnelles</p>
+                            <Col className={"d-flex align-items-center" + (selectedTab===PERSONAL_INFORMATIONS_TAB_KEY ? " color-black" : "")}>
+                                <PersonCard height={"25"} width={"25"}/>
+                                <p className={"ms-3 my-0"}>Informations personnelles</p>
+                            </Col>
                         </Row>
                         <Row
                             type={"button"}
-                            className={"mb-3"}
+                            className={"mb-4"}
                             onClick={() => setSelectedTab(RESERVATIONS_TAB_KEY)}
                         >
-                            <p>Réservations</p>
+                            <Col className={"d-flex align-items-center" + (selectedTab===RESERVATIONS_TAB_KEY ? " color-black" : "")}>
+                                <CalendarCheck height={"25"} width={"25"}/>
+                                <p className={"ms-3 my-0"}>Réservations</p>
+                            </Col>
                         </Row>
                         <Row
                             type={"button"}
-                            className={"mb-3"}
+                            className={"mb-4"}
                             onClick={() => setSelectedTab(ORDERS_TAB_KEY)}
                         >
-                            <p>Commandes</p>
+                            <Col className={"d-flex align-items-center" + (selectedTab===ORDERS_TAB_KEY ? " color-black" : "")}>
+                                <CardCheckList height={"25"} width={"25"}/>
+                                <p className={"ms-3 my-0"}>Commandes</p>
+                            </Col>
                         </Row>
                         <Row
                             type={"button"}
-                            className={"mb-3"}
+                            className={"mb-4"}
                             onClick={() => setSelectedTab(PREFERENCES_TAB_KEY)}
                         >
-                            <p>Préférences</p>
+                            <Col className={"d-flex align-items-center" + (selectedTab===PREFERENCES_TAB_KEY ? " color-black" : "")}>
+                                <Sliders height={"25"} width={"25"}/>
+                                <p className={"ms-3 my-0"}>Préférences</p>
+                            </Col>
                         </Row>
                         <Row
                             type={"button"}
-                            className={"mb-3"}
                             onClick={handleLogout}
                         >
-                            <p>Déconnexion</p>
+                            <Col className={"d-flex align-items-center" + (selectedTab===RESERVATIONS_TAB_KEY ? " color-black" : "")}>
+                                <Logout height={"25"} width={"25"}/>
+                                <p className={"ms-3 my-0"}>Déconnexion</p>
+                            </Col>
                         </Row>
                     </Col>
                     <Col md={9}>

@@ -51,9 +51,9 @@ body {
 }
 
 .stepBackground {
-  background-color: #eeeeee;
+  background-color: #f8f8f8;
   border-radius: 10px;
-  box-shadow: -2px -2px 30px #b9b9b9;
+  box-shadow: -2px -2px 15px #d3d3d3;
 }
 
 .calendarSlot {
@@ -71,4 +71,16 @@ body {
 .modal-backdrop
 {
   opacity:0.5 !important;
+}
+
+.test{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#__next{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }

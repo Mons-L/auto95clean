@@ -1,9 +1,11 @@
 import {
+    Button,
     Col,
     FormControl,
     FormGroup,
     Row
 } from "react-bootstrap";
+import {handleInput} from "../../utils";
 
 const PersonalInfosStep = (props) => {
     return(
@@ -20,32 +22,28 @@ const PersonalInfosStep = (props) => {
                             type={"email"}
                             placeholder={"Adresse e-mail"}
                             className={"mb-4"}
+                            value={props.inputs.email}
+                            onChange={(e) =>
+                                handleInput(e.target.value,props.setInputs, false, "email", props.inputs)}
                         />
                         <FormControl
                             type={"text"}
                             placeholder={"Numéro de téléphone"}
                             className={"mb-4"}
+                            value={props.inputs.phone}
+                            onChange={(e) =>
+                                handleInput(e.target.value,props.setInputs, false, "phone", props.inputs)}
                         />
                         <FormControl
                             type={"text"}
                             placeholder={"Immatriculation du véhicule"}
                             className={"mb-4"}
+                            value={props.inputs.immatriculation}
+                            onChange={(e) =>
+                                handleInput(e.target.value,props.setInputs, false, "immatriculation", props.inputs)}
                         />
+                        <Button onClick={props.handleBook}>Reserver maintenant</Button>
                     </FormGroup>
-                    <Row>
-                        <Col
-                            role={"button"}
-                            className={"border rounded-3 border-3 m-1 text-center choiceBackground"}
-                        >
-                            Réserver et payer sur place
-                        </Col>
-                        <Col
-                            role={"button"}
-                            className={"border rounded-3 border-3 m-1 text-center choiceBackground"}
-                        >
-                            Réserver et payer maintenant
-                        </Col>
-                    </Row>
                 </Col>
             </Row>
         </Row>

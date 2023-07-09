@@ -8,6 +8,7 @@ import {useEffect, useState} from "react";
 import ProductItem from "../../../components/ProductItem";
 import apiHandler from "../../../apiHandler";
 import {useRouter} from "next/navigation";
+import pagesPath from "../../../pagesPath"
 
 const INITIAL_SORT = "preferred"
 
@@ -31,10 +32,11 @@ const Products = props => {
         console.log(search)
     }, [search])
 
-    const handleSearchSubmit = () => {
+    const handleSearchSubmit = (event) => {
+        event.preventDefault()
         console.log("submit search")
-        router.push({
-            pathname: "/products",
+        router.replace({
+            pathname: pagesPath.PRODUCTS_PAGE_PATH,
             query: { q: search}
         })
         apiHandler.fetchProductsBySearch(search)
@@ -127,7 +129,7 @@ const Products = props => {
                     </Col>
                     <Col md={9}>
                         <Row>
-                            <Form>
+                            <Form onSubmit={e => handleSearchSubmit(e)}>
                                 <InputGroup className="mb-3">
                                     <Form.Control
                                         type={'search'}
@@ -137,7 +139,7 @@ const Products = props => {
                                         value={search}
                                         onChange={(e) => handleInput(e.target.value, setSearch, true)}
                                     />
-                                    <Button onClick={handleSearchSubmit}><Search fill={'black'} /></Button>
+                                    <Button type={"submit"}><Search fill={'black'} /></Button>
                                 </InputGroup>
                             </Form>
                         </Row>

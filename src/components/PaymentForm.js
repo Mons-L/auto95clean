@@ -63,7 +63,9 @@ const PaymentForm = (props) => {
                 !success?
                     <Form onSubmit={handleSubmit}>
                         <fieldset className={"FormGroup"}>
-                            <CardElement options={CARD_OPTIONS} onChange={() => console.log("event")} />
+                            <div className={"FormRow"}>
+                                <CardElement options={CARD_OPTIONS} onChange={() => console.log("event")} />
+                            </div>
                         </fieldset>
                         <Button>Payer</Button>
                     </Form>

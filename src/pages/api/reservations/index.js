@@ -49,6 +49,7 @@ const isOpeningHoursConflicts = async (req, res) => {
         const openingHours = await availabilitiesDB.getOpeningHoursByWeekDay(startDate)
         const startReservationTime = new Date(startDate).toLocaleTimeString()
         const endReservationTime = new Date(endDate).toLocaleTimeString()
+
         if(!respectOpeningHours(startReservationTime, endReservationTime,
                 openingHours.morningStartTime, openingHours.morningEndTime)
             && !respectOpeningHours(startReservationTime, endReservationTime,
@@ -79,7 +80,6 @@ const isReservationsConflicts = async (req, res) => {
     const { startDate, endDate } = req.body
     try{
         const reservationsBetweenDates = await reservationsDB.getResevationsBetweenDates(startDate, endDate)
-        console.log(reservationsBetweenDates)
 
         if(reservationsBetweenDates.length >= MAX_RESERVATION_AT_SAME_TIME){
             const message = "[reservations] Inserting reservation failed. The reservation conflicts with others reservations";

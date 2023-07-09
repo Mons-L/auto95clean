@@ -3,7 +3,7 @@ import db from './db.service';
 const SELECT_PRODUCT = 'SELECT p.id, p.label, p.description, p.imagePath, p.price, p.quantity, p.categoryId, pc.label AS categoryLabel FROM product p INNER JOIN product_category pc on p.categoryId = pc.id';
 const ORDER_BY_ASCENDING_PRICE = ' order by price';
 const ORDER_BY_DESCENDING_PRICE = ' order by price DESC';
-const SELECT_PRODUCT_BY_ID = 'SELECT * FROM product WHERE id=?'
+const SELECT_PRODUCT_BY_ID = 'SELECT p.id, p.label, p.description, p.imagePath, p.price, p.quantity, p.categoryId, pc.label AS categoryLabel FROM product p INNER JOIN product_category pc on p.categoryId = pc.id WHERE p.id=?'
 const SELECT_PRODUCT_BY_SEARCH = 'SELECT * FROM product WHERE label LIKE ? OR description LIKE ?'
 const FILTER_BY_CATEGORIES = ' WHERE categoryId IN(?)'
 const INSERT_PRODUCT = 'INSERT INTO product(label, description, imagePath, price, quantity, categoryId) VALUES(?, ?, ?, ?, ?, ?)';

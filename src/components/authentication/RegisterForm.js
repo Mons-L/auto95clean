@@ -4,10 +4,19 @@ import {
     Form,
     Row
 } from "react-bootstrap";
+import Link from "next/link";
+import global from "../../pagesPath";
+import LeftArrow from "../../resources/icons/LeftArrow";
 
 const RegisterForm = (props) => {
     return(
         <>
+            <Row className={"my-3 my-sm-4"}>
+                <Button variant={"link"} onClick={props.setSelectedTab}  className={"d-flex align-items-center text-decoration-none color-black"}>
+                    <LeftArrow className={"d-flex"} fill={"black"} />
+                    <p className={"m-0 ms-2 color-black"}>Retour vers la page de connexion</p>
+                </Button>
+            </Row>
             <h2>Inscription</h2>
             <Form
                 className={"mt-3"}

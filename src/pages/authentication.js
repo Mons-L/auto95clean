@@ -50,9 +50,7 @@ const Authentication = props => {
         setWaiting(true)
         apiHandler
             .login(loginCredentials)
-            .then(response => {
-                return router.push(global.CLIENT_DASHBOARD_PAGE_PATH)
-            })
+            .then(response => router.push(global.CLIENT_DASHBOARD_PAGE_PATH))
             .catch(err => {
                 console.log(err)
                 setWaiting(false)
@@ -64,14 +62,7 @@ const Authentication = props => {
         setWaiting(true)
         apiHandler
             .register(registerInformations)
-            .then(response => {
-                return {
-                    redirect: {
-                        destination: '/client/dashboard',
-                        permanent: false
-                    }
-                }
-            })
+            .then(response => router.push(global.CLIENT_DASHBOARD_PAGE_PATH))
             .catch(err => {
                 console.log(err)
                 setWaiting(false)
@@ -96,6 +87,7 @@ const Authentication = props => {
                             onSubmit={handleRegisterSubmit}
                             registerInformations={registerInformations}
                             handleOnChangeInput={(e, inputName) => handleInput(e.target.value, setRegisterInformations, false, inputName, registerInformations)}
+                            setSelectedTab={() => setSelectedTab(LOGIN_FORM_TAB_KEY)}
                         />
                     }
                 </Row>

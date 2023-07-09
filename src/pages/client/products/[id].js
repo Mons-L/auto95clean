@@ -8,11 +8,29 @@ import {useRouter} from "next/router";
 import Image from "next/image";
 import {useState} from "react";
 import global from "../../../pagesPath";
+import apiHandler from "../../../apiHandler";
+
+export const getStaticPaths = async () => {
+
+    return {
+        paths: [], //indicates that no page needs be created at build time
+        fallback: 'blocking' //indicates the type of fallback
+    }
+}
+
+export async function getStaticProps(context){
+    const id = context.params.id
+    const product = await apiHandler.fetchProduct(id).then(response => response.data.product)
+
+    return{
+        props:{
+            product: product
+        }
+    }
+}
 
 const ProductScreen = props => {
 
-    const { query } = useRouter();
-    const { id } = query
     const product = {id: '1', title: 'titre produit', description: 'description blablablabla', price: '4.99',
         imagesPath: [
             'https://www.sourcedessens.fr/wp-content/webp-express/webp-images/uploads/2021/05/250ml-Linge-Propre-247x296.jpg.webp',
@@ -29,7 +47,7 @@ const ProductScreen = props => {
     }
 
         return(
-            !product?
+            !props.product?
                 <div>Product Not Found</div>
             :
                 <>
@@ -47,51 +65,46 @@ const ProductScreen = props => {
                                 <Row>
                                     <Col sm={2} className={"d-sm-block d-none"}>
                                         {
-                                            product.imagesPath.map((imagePath, index) => {
-                                                return (
-                                                    <Row key={"image-"+index} className={"mb-2"}>
+                                            /*props.product.imagesPath.map((imagePath, index) => {
+                                                return (*/
+                                                    <Row key={"image-"/*+index*/} className={"mb-2"}>
                                                         <img
-                                                            onClick={() => handleSelectedImage(index)}
+                                                            onClick={() => handleSelectedImage(0/*index*/)}
                                                             role={"button"}
-                                                            className={"img-fluid " + (selectedImage===index? "border border-1" : "")}
-                                                            src={product.imagesPath[index]}
+                                                            className={"img-fluid " + (true /*selectedImage===index*/? "border border-1" : "")}
+                                                            src={props.product.imagePath}
                                                             alt={"product image"}
                                                         />
                                                     </Row>
-                                                );
-                                            })
+                                               /* );
+                                            })*/
                                         }
                                     </Col>
                                     <Col sm={10}>
-                                        <img className={"img-fluid"} src={product.imagesPath[selectedImage]} width={500} alt={"image of product"}/>
+                                        <img className={"img-fluid"} src={props.product.imagePath/*[selectedImage]*/} width={500} alt={"image of product"}/>
                                     </Col>
                                 </Row>
 
                             </Col>
                             <Col md={12} lg={6} className={"mb-4"}>
                                 <Row>
-                                    <Col lg={12} xl={6}>
-                                        <ul>
-                                            <li>
-                                                <h1>{product.title}</h1>
-                                            </li>
-                                            <li>
-                                                Vendu par <strong>Auto95Clean</strong>
-                                            </li>
-                                            <li>Categorie : {product.category}</li>
-                                            <li>Description : {product.description}</li>
-                                        </ul>
+                                    <Col lg={12} xl={12}>
+                                        <h3>{props.product.label}</h3>
+                                        <div className={"d-flex"}>
+                                            <p>Catégorie</p>
+                                            <p className={"ms-3"}>{props.product.categoryLabel}</p>
+                                        </div>
+                                        <div>
+                                            <p>Description</p>
+                                            <p>{props.product.description}</p>
+                                        </div>
                                     </Col>
 
-                                    <Col lg={12} xl={6}>
+                                    <Col lg={12} xl={12}>
                                         <Card className={"p-3 shadow-sm"}>
                                             <div className={"d-flex justify-content-between"}>
                                                 <p>Prix</p>
-                                                <p>{product.price} €</p>
-                                            </div>
-                                            <div className={"d-flex justify-content-between"}>
-                                                <p>Status</p>
-                                                <p>{product.quantity>0? "En stock" : "En rupture de stock"}</p>
+                                                <p>{props.product.price} €</p>
                                             </div>
                                             <div className={"d-flex justify-content-between"}>
                                                 <p>Retrait en magasin</p>
@@ -107,16 +120,19 @@ const ProductScreen = props => {
                                 </Row>
                             </Col>
                         </Row>
-                        <Row className={"mb-4"}>
-                            <Row>
-                                <h2>Nous vous recommandons</h2>
-                            </Row>
-                            <Row>
-                                scrollbar
-                                <Col>PRODUIT1</Col>
-                                <Col>PRODUIT1</Col>
-                            </Row>
-                        </Row>
+                        {/*
+                            <Row className={"mb-4"}>
+                                <Row>
+                                    <h2>Nous vous recommandons</h2>
+                                </Row>
+                                <Row>
+                                    scrollbar
+                                    <Col>PRODUIT1</Col>
+                                    <Col>PRODUIT1</Col>
+                                </Row>
+                            </Row>*/
+                        }
+
                     </Container>
                 <Footer />
             </>

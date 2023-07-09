@@ -1,21 +1,32 @@
 import { Col, FloatingLabel, Row } from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
 import { handleInput } from "../../utils";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 
-const client = {
+let client = {
     id: 1,
     firstName: "Salma",
     lastName: "BENCHELKHA",
     email: "salmabenchelkha@gmail.com",
     password: "*********",
     phone: "07 89 78 46 32",
-    birthday: new Date(2018, 8, 22)
+    birthday: "2000-07-08"
 }
 
 const PersonalInformations = props => {
 
     const [informations, setInformations] = useState("")
+
+    if(props.user.role === "ADMIN")
+        client = {
+            id: 2,
+            firstName: "Mouncif",
+            lastName: "LEKMITI",
+            email: "mouncif@admin.com",
+            password: "*********",
+            phone: "07 53 59 76 70",
+            birthday: "2000-11-25"
+        }
 
     return(
         <Row>

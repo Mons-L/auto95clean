@@ -33,13 +33,13 @@ const Services = props => {
     const [availableTasks, setAvailableTasks] = useState(null)
     const [selectedTasks, setSelectedTasks] = useState([])
     const [availableSlots, setAvailableSlots] = useState(null)
-    const [selectedSlot, setSelectedSlot] = useState({start: "2023-07-15:09:35:00", end: "2023-07-15:09:36:00"})
+    const [selectedSlot, setSelectedSlot] = useState(null/*{start: "2023-07-15:09:35:00", end: "2023-07-15:09:36:00"}*/)
     const [personalInfos, setPersonalInfos] = useState({
-        email: "a@tst.fr",
-        phone: "0753597670",
-        immatriculation: "BJ-326-ER"
+        email: "",
+        phone: "",
+        immatriculation: ""
     })
-    const [paymentMode, setPaymentMode] = useState(null)
+    const [paymentMode, setPaymentMode] = useState(ON_SITE_PAYMENT_MODE)
     const [waiting, setWaiting] = useState(false)
 
     useEffect(() => {
@@ -57,9 +57,11 @@ const Services = props => {
                 .then(response => setAvailableTasks(response.data.tasks))
                 .catch(err => console.log(err))
             setSelectedTasks([])
+            setSelectedSlot(null)
             setSelectedFormula(null)
         }
     }, [selectedFormulaType])
+
 
     const handleBook = () => {
         apiHandler.registerReservation({
@@ -122,7 +124,7 @@ const Services = props => {
                     />
                 }
                 {
-                    selectedFormulaType && selectedFormulaType.id === FORMULA_TYPE_CUSTOM_ID &&
+                    selectedFormulaType && availableTasks && selectedFormulaType.id === FORMULA_TYPE_CUSTOM_ID &&
                     <Tasks
                         key={"step-tasksChoice"}
                         availableTasks={availableTasks}
@@ -143,13 +145,19 @@ const Services = props => {
                     />
                 }
                 {
-                    selectedSlot &&
+                    selectedSlot && selectedSlot.start && selectedSlot.end
+                    && ((selectedFormula && selectedFormulaType.id === FORMULA_TYPE_READY_ID)
+                    || (selectedTasks && selectedTasks.length>0 && selectedFormulaType && selectedFormulaType.id === FORMULA_TYPE_CUSTOM_ID ))
+                    &&
                         <>
                             <PersonalInfosStep
                                 key={"step-reservationInfos"}
                                 saveChoice={setPersonalInfos}
+                                handleBook={handleBook}
+                                inputs={personalInfos}
+                                setInputs={setPersonalInfos}
                             />
-                            <div className="mb-3">
+                            {/*<div className="mb-3">
                                 <Form.Check
                                     inline
                                     label="Payer maintenant"
@@ -169,16 +177,17 @@ const Services = props => {
                                     onChange={() => setPaymentMode(ON_SITE_PAYMENT_MODE)}
                                 />
                             </div>
+                            */}
                         </>
                 }
-                {
+                {/*
                     paymentMode === ON_SITE_PAYMENT_MODE?
                         <Button onClick={handleBook}>Reserver maintenant</Button>
                     :
                         <Row>
                             info de paiement
                             <Button>Payer et reserver</Button>
-                        </Row>
+                        </Row>*/
                 }
             </>
         )

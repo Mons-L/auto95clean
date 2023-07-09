@@ -24,6 +24,7 @@
     "micro": "^10.0.1",
     "next": "13.2.4",
     "next-connect": "^1.0.0-next.4",
+    "next-redux-wrapper": "^8.1.0",
     "next-usequerystate": "^1.7.3",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
@@ -32,6 +33,10 @@
     "react-bootstrap": "^2.7.4",
     "react-dom": "18.2.0",
     "react-loading-skeleton": "^3.3.1",
+    "react-redux": "^8.1.1",
+    "redux": "^4.2.1",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.4.2",
     "serverless-mysql": "^1.5.4",
     "stripe": "^12.10.0",
     "swr": "^2.2.0"

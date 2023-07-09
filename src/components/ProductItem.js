@@ -11,10 +11,9 @@ const ProductItem = ({product}) => {
                         <Card.Img className={"rounded shadow-sm"} variant="top" src={product.imagePath} />
                     </Link>
                     <Card.Body>
-                        <Link href={global.PRODUCTS_PAGE_PATH + product.id}>
+                        <Link className={"text-decoration-none text-black text-start"} href={global.PRODUCTS_PAGE_PATH + product.id}>
                             <Card.Text className={'m-0'}>{product.label}</Card.Text>
                         </Link>
-                        <p>Marque du produit</p>
                         <Row className={'justify-content-between'}>
                             <Col className={'d-flex justify-content-start'}>
                                 <Card.Text>{product.price.toLocaleString()} €</Card.Text>
