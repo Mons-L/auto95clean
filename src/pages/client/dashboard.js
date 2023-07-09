@@ -17,6 +17,10 @@ import {
 } from "react";
 import protectedPage from "../../lib/protectedPageRoute";
 import UserProtectedRoute from "../../components/protectedRoutes/UserProtectedRoute";
+import apiHandler from "../../apiHandler";
+import pagesPath from "../../../src/pagesPath"
+
+import {useRouter} from "next/router";
 
 const PERSONAL_INFORMATIONS_TAB_KEY = "PersonalInformations"
 const RESERVATIONS_TAB_KEY = "Reservations"
@@ -29,8 +33,14 @@ export async function getServerSideProps(context) {
 
 const Dashboard = props => {
 
+    const router = useRouter()
     const [user, setUser] = useState(null)
     const [selectedTab, setSelectedTab] = useState(PERSONAL_INFORMATIONS_TAB_KEY)
+
+    const handleLogout = () => {
+        apiHandler.logout()
+            .then(() => router.push(pagesPath.HOME_PAGE_PATH))
+    }
 
     const renderSections = () => {
         return (
@@ -85,6 +95,7 @@ const Dashboard = props => {
                         <Row
                             type={"button"}
                             className={"mb-3"}
+                            onClick={handleLogout}
                         >
                             <p>Déconnexion</p>
                         </Row>

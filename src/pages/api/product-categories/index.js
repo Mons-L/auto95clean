@@ -27,9 +27,9 @@ router
     .put(async (req, res) => {
         const { label } = req.body
         try{
-            const productCategories = await productCategoriesDB.insertProductCategory(label);
+            const insertedId = await productCategoriesDB.insertProductCategory(label);
             return res.status(200).json({
-                data: {productCategories: productCategories},
+                data: {insertedId: insertedId},
                 error: null
             });
         }

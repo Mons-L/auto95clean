@@ -1,9 +1,7 @@
-import {
-    Col,
-    Row
-} from "react-bootstrap";
-
+import { Col, FloatingLabel, Row } from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
+import { handleInput } from "../../utils";
+import { useState } from "react";
 
 const client = {
     id: 1,
@@ -16,69 +14,63 @@ const client = {
 }
 
 const PersonalInformations = props => {
+
+    const [informations, setInformations] = useState("")
+
     return(
         <Row>
             <h3>Mes informations personnelles</h3>
             <Row className={"justify-content-center"}>
-                <Col>
-                    <Form className={"m-3"}>
-                        <Form.Group className={"d-flex m-4"}>
-                            <Form.FloatingLabel label={""}>
-                                <span className="input-group-text">Prénom</span>
-                            </Form.FloatingLabel>
-                            <Form.Control
-                                type={"firstname"}
-                                className={"me-4"}
-                                value={client.firstName}
-                                onChange={() => console.log("aa")}
-                            />
-                            <Form.FloatingLabel label={""}>
-                                <span className="input-group-text">Nom</span>
-                            </Form.FloatingLabel>
-                            <Form.Control
-                                type={"lastname"}
-                                value={client.lastName}
-                                onChange={() => console.log("aa")}
-                            />
-                        </Form.Group>
-
-                        <Form.Group className={"d-flex m-4"}>
-                            <Form.FloatingLabel label={""}>
-                                <span className="input-group-text">Adresse e-mail</span>
-                            </Form.FloatingLabel>
-                            <Form.Control
-                                type={"email"}
-                                className={"me-4"}
-                                placeholder={client.email}
-                            />
-                            <Form.FloatingLabel label={""}>
-                                <span className="input-group-text">Mot de passe</span>
-                            </Form.FloatingLabel>
-                            <Form.Control type={"password"} placeholder={client.password} />
-                        </Form.Group>
-
-                        <Form.Group className={"d-flex m-4"}>
-                            <Form.FloatingLabel label={""}>
-                                <span className="input-group-text">Numéro de téléphone</span>
-                            </Form.FloatingLabel>
-                            <Form.Control
-                                type={"phone"}
-                                placeholder={client.phone}
-                            />
-                        </Form.Group>
-
-                        <Form.Group className={"d-flex m-4"}>
-                            <Form.FloatingLabel label={""}>
-                                <span className="input-group-text">Date de naissance</span>
-                            </Form.FloatingLabel>
-                            <Form.Control
-                                type={"date"}
-                                value={client.birthday}
-                                onChange={() => console.log("aa")}
-                            />
-                        </Form.Group>
-
-                    </Form>
+                <Col className={"mb-5"}>
+                    <FloatingLabel label={"Prénom"} className={"mt-3"}>
+                        <Form.Control
+                            value={client.firstName}
+                            placeholder="Prénom"
+                            onChange={(event) =>
+                                handleInput(event.target.value, setInformations, false, "firstname", informations)}
+                        />
+                    </FloatingLabel>
+                    <FloatingLabel label={"Nom"} className={"mt-3"}>
+                        <Form.Control
+                            value={client.lastName}
+                            placeholder="Nom"
+                            onChange={(event) =>
+                                handleInput(event.target.value, setInformations, false, "lastname", informations)}
+                        />
+                    </FloatingLabel>
+                    <FloatingLabel label={"Adresse mail"} className={"mt-3"}>
+                        <Form.Control
+                            value={client.email}
+                            placeholder="Adresse mail"
+                            onChange={(event) =>
+                                handleInput(event.target.value, setInformations, false, "email", informations)}
+                        />
+                    </FloatingLabel>
+                    <FloatingLabel label={"Mot de passe"} className={"mt-3"}>
+                        <Form.Control
+                            value={client.password}
+                            placeholder="Mot de passe"
+                            onChange={(event) =>
+                                handleInput(event.target.value, setInformations, false, "password", informations)}
+                        />
+                    </FloatingLabel>
+                    <FloatingLabel label={"Numéro de téléphone"} className={"mt-3"}>
+                        <Form.Control
+                            value={client.phone}
+                            placeholder="Numéro de téléphone"
+                            onChange={(event) =>
+                                handleInput(event.target.value, setInformations, false, "phone", informations)}
+                        />
+                    </FloatingLabel>
+                    <FloatingLabel label={"Date de naissance"} className={"mt-3"}>
+                        <Form.Control
+                            type={"date"}
+                            value={client.birthday}
+                            placeholder="Adresse mail"
+                            onChange={(event) =>
+                                handleInput(event.target.value, setInformations, false, "birthday", informations)}
+                        />
+                    </FloatingLabel>
                 </Col>
             </Row>
         </Row>

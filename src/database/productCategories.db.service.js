@@ -3,7 +3,7 @@ import db from './db.service';
 const SELECT_PRODUCT_CATEGORIES = 'SELECT * FROM product_category';
 const SELECT_PRODUCT_CATEGORY_BY_ID = 'SELECT * FROM product_category WHERE id=?'
 const SELECT_PRODUCT_CATEGORY_BY_LABEL = 'SELECT * FROM product_category WHERE label=?'
-const INSERT_PRODUCT_CATEGORY = 'INSERT INTO product_category(label,) VALUES(?)';
+const INSERT_PRODUCT_CATEGORY = 'INSERT INTO product_category(label) VALUES(?)';
 const UPDATE_PRODUCT_CATEGORY = 'UPDATE product_category SET label=? WHERE id=?';
 const DELETE_PRODUCT_CATEGORY = 'DELETE FROM product_category WHERE id=?';
 

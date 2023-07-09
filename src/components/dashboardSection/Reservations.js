@@ -1,5 +1,5 @@
 import {
-    Accordion,
+    Accordion, Button,
     Col,
     Row, Table
 } from "react-bootstrap";
@@ -17,6 +17,7 @@ import apiHandler from "../../apiHandler";
 import Loader from "../Loader";
 
 const CUSTOM_FORMULA_LABEL = "Custom"
+const CANCEL_RESERVATION_STATE = "Cancel"
 
 const Reservations = props => {
 
@@ -33,6 +34,17 @@ const Reservations = props => {
             })
             .catch(response => setIsLoading(false))
     }, [])
+
+    const handleCancel = (reservation) => {
+        apiHandler.cancelReservation(reservation.id)
+            .then(response => {
+                setReservations(reservations.map(item => {
+                    if(item.id === reservation.id)
+                        return {...item, state: CANCEL_RESERVATION_STATE}
+                    return item
+                }))
+            })
+    }
 
     return(
         <Row>
@@ -71,6 +83,11 @@ const Reservations = props => {
                                                 </AccordionHeader>
                                                 <AccordionBody>
                                                     <Row className={"align-items-center"}>
+                                                        <Button
+                                                            onClick={ () => handleCancel(reservation) }
+                                                        >
+                                                            ANNULER
+                                                        </Button>
                                                         <Col className={"me-5"}>
                                                             <p className={"font-size-14 fw-semibold mb-0"}>Type de
                                                                 véhicule</p>

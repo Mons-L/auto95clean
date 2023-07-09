@@ -19,6 +19,10 @@ import {
     useState
 } from "react";
 import AdminProtectedRoute from "../../components/protectedRoutes/AdminProtectedRoute";
+import AuthProtectedRoute from "../../components/protectedRoutes/AuthProtectedRoute";
+import apiHandler from "../../apiHandler";
+import pagesPath from "../../pagesPath";
+import {useRouter} from "next/router";
 
 const PERSONAL_INFORMATIONS_TAB_KEY = "PersonalInformations"
 const SERVICE_TAB_KEY = "Services"
@@ -29,6 +33,7 @@ const PREFERENCES_TAB_KEY = "Preferences"
 
 const Dashboard = props => {
 
+    const router = useRouter()
     const [user, setUser] = useState(null)
     const [selectedTab, setSelectedTab] = useState(PERSONAL_INFORMATIONS_TAB_KEY)
 
@@ -45,8 +50,13 @@ const Dashboard = props => {
         )
     }
 
+    const handleLogout = () => {
+        apiHandler.logout()
+            .then(() => router.push(pagesPath.HOME_PAGE_PATH))
+    }
+
     return(
-        <AdminProtectedRoute user={user} setUser={setUser}>
+        <AuthProtectedRoute user={user} setUser={setUser}>
             <MyNavBar activepath={'/dashboard'} />
             <Container>
                 <Row className={'my-5'}>
@@ -90,13 +100,6 @@ const Dashboard = props => {
                             className={"mb-3"}
                             onClick={() => setSelectedTab(ORDERS_TAB_KEY)}
                         >
-                            <p>Catégories</p>
-                        </Row>
-                        <Row
-                            type={"button"}
-                            className={"mb-3"}
-                            onClick={() => setSelectedTab(ORDERS_TAB_KEY)}
-                        >
                             <p>Commandes</p>
                         </Row>
 
@@ -110,6 +113,7 @@ const Dashboard = props => {
                         <Row
                             type={"button"}
                             className={"mb-3"}
+                            onClick={handleLogout}
                         >
                             <p>Déconnexion</p>
                         </Row>
@@ -120,7 +124,7 @@ const Dashboard = props => {
                 </Row>
             </Container>
             <Footer />
-        </AdminProtectedRoute>
+        </AuthProtectedRoute>
     )
 }
 

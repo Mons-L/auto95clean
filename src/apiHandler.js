@@ -99,6 +99,12 @@ export default {
             .catch(errorHandler)
     },
 
+    cancelReservation(id){
+        return this.apiServer.post("/reservations/" + id)
+            .then(response => response.data)
+            .catch(errorHandler)
+    },
+
     insertMessage({firstname, lastname, email, subject, content}){
         return this.apiServer.put("/messages", {
             firstname,
@@ -117,6 +123,27 @@ export default {
             .catch(errorHandler)
     },
 
+    addCategory({ label }){
+        return this.apiServer.put("/product-categories/" , {
+            label
+        })
+            .then(response => response.data)
+            .catch(errorHandler)
+    },
+
+    addProduct({ label, description, imagePath, price, quantity, categoryId }){
+        return this.apiServer.put("/products/" , {
+            label,
+            description,
+            imagePath,
+            price,
+            quantity,
+            categoryId
+        })
+            .then(response => response.data)
+            .catch(errorHandler)
+    },
+
     updateProduct({ id, label, description, imagePath, price, quantity, categoryId }){
         return this.apiServer.post("/products/" + id, {
             label,
@@ -126,6 +153,12 @@ export default {
             quantity,
             categoryId
         })
+            .then(response => response.data)
+            .catch(errorHandler)
+    },
+
+    deleteProduct({ id }){
+        return this.apiServer.delete("/products/" + id)
             .then(response => response.data)
             .catch(errorHandler)
     },
@@ -156,6 +189,12 @@ export default {
         return this.apiServer
             .get('/auth/logged-in')
             .then(response => response.data)
+            .catch(errorHandler)
+    },
+
+    logout(){
+        return this.apiServer
+            .post('/auth/logout')
             .catch(errorHandler)
     },
 
