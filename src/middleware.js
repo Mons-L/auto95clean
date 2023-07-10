@@ -1,4 +1,4 @@
-import {check, validationResult} from "express-validator";
+//import {check, validationResult} from "express-validator";
 import nextConnect from "next-connect";
 import {redirect} from "next/dist/server/api-utils";
 import { NextResponse } from 'next/server'

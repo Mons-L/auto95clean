@@ -1,4 +1,4 @@
-import {check, initValidation} from "../middleware/handler";
+/*import {check, initValidation} from "../middleware/handler";
 
 const postValidator = initValidation(
     [
@@ -17,4 +17,4 @@ const putValidator = initValidation(
             check('price').isFloat().withMessage('The price must be a float'),
             check('quantity').isNumeric().withMessage('The quantity must be a number'),
     ]
-);
+);*/

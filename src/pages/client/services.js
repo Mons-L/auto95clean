@@ -82,9 +82,9 @@ const Services = props => {
     const renderError = () => {
         return(
             <div>
-                Quelque chose n'a pas fonctionné correctement.
+                Quelque chose n&apos;a pas fonctionné correctement.
                 Réessayez dans quelques instants. Si le problème persiste, veillez contacter
-                l'administrateur du site
+                l&apos;administrateur du site
             </div>
         )
     }

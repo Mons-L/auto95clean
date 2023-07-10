@@ -86,7 +86,7 @@ const Preferences = props => {
                         </Row>
                         <Row className={"mt-4"}>
                             <Col>
-                                <Form.Label>Personnalisation de l'interface</Form.Label>
+                                <Form.Label>Personnalisation de l&apos;interface</Form.Label>
                                 <Form.Check
                                     type="switch"
                                     id="custom-switch"

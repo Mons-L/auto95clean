@@ -91,7 +91,7 @@ export default function Home() {
                     <Col className={"col-md-11 text-center"}>
                         <h2>Lavage automobile à la main</h2>
                         <p>
-                            Spécialisée dans le nettoyage et l'entretien de voitures, nous sommes là pour vous aider à garder votre véhicule dans les meilleures conditions.
+                            Spécialisée dans le nettoyage et l&apos;entretien de voitures, nous sommes là pour vous aider à garder votre véhicule dans les meilleures conditions.
                             Nous sommes fiers de proposer des services personnalisés pour répondre aux besoins spécifiques de chaque client.
                         </p>
                     </Col>

@@ -1,4 +1,4 @@
-import {check, initValidation} from "../middleware/handler";
+/*import {check, initValidation} from "../middleware/handler";
 
 const putValidator = initValidation(
     [
@@ -19,4 +19,4 @@ const deleteValidator = initValidation(
     [
         check('id').isNumeric().withMessage('The id must be a number')
     ]
-)
+)*/

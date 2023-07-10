@@ -18,7 +18,7 @@ const handlePut = (req, res) => {
     const {id} = req.body
 
     try{
-        const payment = await stripe.paymentIntents.create({
+        /*const payment = await stripe.paymentIntents.create({
             unit_amount: amount,
             quantity: quantity,
             currency: "eur",
@@ -26,7 +26,7 @@ const handlePut = (req, res) => {
             payment_method: id,
             confirm: true
         })
-        console.log("Payment", payment)
+        console.log("Payment", payment)*/
         return res.json({message: "reussi"})
     }
     catch (error){

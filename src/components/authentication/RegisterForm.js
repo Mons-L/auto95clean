@@ -31,7 +31,7 @@ const RegisterForm = (props) => {
                                 name={"firstname"}
                                 value={props.registerInformations.firstname}
                                 placeholder="Prénom"
-                                onChange={(e) => props.handleOnChangeInput(e, 'firstname')}
+                                onChange={(e) => props.handleOnChangeInput(e, "firstname")}
                             />
                         </Form.Group>
                     </Col>
@@ -43,7 +43,7 @@ const RegisterForm = (props) => {
                                 name={"lastname"}
                                 value={props.registerInformations.lastname}
                                 placeholder="Nom"
-                                onChange={(e) => props.handleOnChangeInput(e, 'lastname')}
+                                onChange={(e) => props.handleOnChangeInput(e, "lastname")}
                             />
                         </Form.Group>
                     </Col>
@@ -55,7 +55,7 @@ const RegisterForm = (props) => {
                         name={"email"}
                         value={props.registerInformations.email}
                         placeholder="nom@example.com"
-                        onChange={(e) => props.handleOnChangeInput(e, 'email')}
+                        onChange={(e) => props.handleOnChangeInput(e, "email")}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3">
@@ -65,7 +65,7 @@ const RegisterForm = (props) => {
                         name={"password"}
                         value={props.registerInformations.password}
                         placeholder="Mot de passe"
-                        onChange={(e) => props.handleOnChangeInput(e, 'password')}
+                        onChange={(e) => props.handleOnChangeInput(e, "password")}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3">
@@ -75,14 +75,14 @@ const RegisterForm = (props) => {
                         name={"confirmPassword"}
                         value={props.registerInformations.confirmedPassword}
                         placeholder="Confirmer le mot de passe"
-                        onChange={(e) => props.handleOnChangeInput(e, 'confirmPassword')}
+                        onChange={(e) => props.handleOnChangeInput(e, "confirmPassword")}
                     />
                 </Form.Group>
                 <Button
                     type={"submit"}
                     variant="light"
                 >
-                    S'inscrire
+                    S&apos;inscrire
                 </Button>
             </Form>
         </>

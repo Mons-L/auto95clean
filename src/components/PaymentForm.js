@@ -71,7 +71,7 @@ const PaymentForm = (props) => {
                     </Form>
                 :
                     <div>
-                        <h2>Vous venez d'acheter</h2>
+                        <h2>Vous venez d&apos;acheter</h2>
                     </div>
             }
         </>

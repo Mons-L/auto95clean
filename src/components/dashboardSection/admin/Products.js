@@ -194,7 +194,7 @@ const Products = (props) => {
                                                                     </Col>
                                                                 </Row>
                                                                 <Row className={"mt-1"}>
-                                                                    <p className={"fw-semibold mb-0"}>Lien de l'image</p>
+                                                                    <p className={"fw-semibold mb-0"}>Lien de l&apos;image</p>
                                                                     <p className={"fst-italic"}>{product.imagePath}</p>
                                                                 </Row>
                                                                 <Row className={"mt-1"}>
